@@ -1,0 +1,235 @@
+{% macro show_provider_button(provider_id, display_name, conn) %}
+    {% if conn %}
+    <form action="{{ url_for('social.remove_connection', provider_id=conn.provider_id, provider_user_id=conn.provider_user_id) }}" method="DELETE">
+      <button type="submit" class="btn btn-primary btn-large">Disconnect {{ display_name }}</button>
+    </form>
+    {% else %}
+    <form action="{{ url_for('social.connect', provider_id=provider_id) }}" method="POST">
+      <button type="submit" class="btn btn-primary btn-large">Connect {{ display_name }}</button>
+    </form>
+    {% endif %}
+{% endmacro %}
+
+{% macro social_register(provider_id, display_name) %}
+  <form action="{{ url_for('social.login', provider_id=provider_id) }}" method="POST">
+    <button type="submit" class="btn btn-primary btn-large">Register with {{ display_name }}</button>
+  </form>
+{% endmacro %}
+
+{% macro social_login(provider_id, display_name) %}
+  <form action="{{ url_for('social.login', provider_id=provider_id) }}" method="POST">
+    <button type="submit" class="btn btn-lg btn-primary btn-block">Login with {{ display_name }}</button>
+  </form>
+{% endmacro %}
+
+{% macro challenge_block(challenge,size,challenge_images) %}
+<li class="col-md-{{size}}">
+  <div class="thumbnail" style="padding: 0">
+    <div class="centered" style="padding:4px;height:130px"> <img alt="300x200" style="max-height: 130px;max-width: 200px" src="{{challenge_images.url(challenge.id)}}.{{challenge.image_extension}}"> </div>
+    <div class="caption" style="height:240px">
+      <h5 class="dotted" style="height:20px; width:100%;color: black"><a href={{url_for('viewchallenge',challenge_id=challenge.id)}}>{{challenge.goal}}</a></h5>
+      <p> <i class="glyphicon glyphicon-user"></i> {{ challenge.user.username }} </p>
+      <div class="dotted" style="height:80px; width:100%;color: black">{{challenge.description}}</div>
+      <p><i class="glyphicon glyphicon-calendar"> </i><cite title="deadline"> {{challenge.deadline.strftime('%B %d, %Y')}}</cite></p>
+      <i class="glyphicon glyphicon-map-marker"> </i><cite title="location"> {{challenge.user.location}}</cite>
+      <p><i class="glyphicon glyphicon-tag"> </i><cite title="charity"> {{challenge.charities[0].name}}</cite></p>
+    </div>
+    <div class="modal-footer" style="text-align: left">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> <span class="sr-only">60% Complete</span> </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><b>60%</b><br/>
+          <small>{{ g.user.username }}</small></div>
+        <div class="col-md-6"><b>{{momentjs(challenge.deadline).DaysUntil()}}</b><br/>
+          <small>days left</small></div>
+      </div>
+    </div>
+  </div>
+</li>
+{% endmacro %}
+
+{% macro groupchallenge_block(challenge,size,challenge_images) %}
+<li class="col-md-{{size}}">
+  <div class="thumbnail" style="padding: 0">
+    <div class="centered" style="padding:4px;height:130px"> <img  alt="300x200" style=";max-width: 200px;max-height: 130px" src="{{challenge_images.url(challenge.id)}}.{{challenge.image_extension}}"> </div>
+    <div class="caption" style="height:190px">
+      <h5 class="dotted" style="height:20px; width:100%;color: black"><a href={{url_for('viewgroupchallenge',groupchallenge_id=challenge.id)}}>{{challenge.goal}}</a></h5>
+      <div class="dotted" style="height:80px; width:100%;color: black">{{challenge.description}}</div>
+      <p><i class="glyphicon glyphicon-calendar"> </i><cite title="deadline"> {{challenge.deadline.strftime('%B %d, %Y')}}</cite></p>
+
+      <p><i class="glyphicon glyphicon-tag"> </i><cite title="charity"> {{challenge.charities[0].name}}</cite></p>
+    </div>
+    <div class="modal-footer" style="text-align: left">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> <span class="sr-only">60% Complete</span> </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6"><b>60%</b><br/>
+          <small>{{ g.user.username }}</small></div>
+        <div class="col-md-6"><b>{{momentjs(challenge.deadline).DaysUntil()}}</b><br/>
+          <small>days left</small></div>
+      </div>
+    </div>
+  </div>
+</li>
+{% endmacro %}
+{% macro image_areaselect(img_id) %}
+<script src="{{ url_for('static', filename = 'vendor/imgareaselect/scripts/jquery.imgareaselect.pack.js') }}"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#{{img_id}}').imgAreaSelect({aspectRatio: '4:3', handles: true });
+    });
+</script>
+{% endmacro %}
+{% macro image_preview(input_id,img_id) %}
+<script src="{{ url_for('static', filename = 'vendor/imgareaselect/scripts/jquery.imgareaselect.pack.js') }}"></script>
+<script type="text/javascript">
+        function submitselection(img, selection) {
+            $('input[name="image_x1"]').val(selection.x1);
+            $('input[name="image_y1"]').val(selection.y1);
+            $('input[name="image_x2"]').val(selection.x2);
+            $('input[name="image_y2"]').val(selection.y2);      
+        }
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#{{img_id}}').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        function addImgAreaSelect( img ){
+            img.addClass( 'imgAreaSelect' ).imgAreaSelect({
+                    handles : true,
+                    aspectRatio : '4:3',
+                    fadeSpeed : 1,
+                    show : true
+            });
+            img.load(function(){ // display initial image selection 4:3
+                        var height = ( this.width / 4 ) * 3;
+                        if( height <= this.height ){     
+                                var diff = ( this.height - height ) / 2;
+                                var coords = { x1 : 0, y1 : diff, x2 : this.width, y2 : height + diff, onSelectChange: submitselection };
+                        }   
+                        else{ // if new height out of bounds, scale width instead
+                                var width = ( this.height / 3 ) * 4; 
+                                var diff = ( this.width - width ) / 2;
+                                var coords = { x1 : diff, y1 : 0, x2 : width + diff, y2: this.height, onSelectChange: submitselection };
+                        }   
+                    $( this ).imgAreaSelect( coords);
+                    submitselection(this, coords)
+            });
+        }
+        $("#{{input_id}}").change(function(){
+            readURL(this);
+            addImgAreaSelect($('#{{img_id}}'))
+        });
+</script>
+{% endmacro %}
+{% macro date_picker(date_id) %}
+<script type="text/javascript">
+            // When the document is ready
+            $(document).ready(function () {
+                
+                $('#{{date_id}}').datepicker({
+                    format: "dd/mm/yyyy"
+                });  
+            
+            });
+</script>
+{% endmacro %}
+{% macro show_hide(show_label,hide_label) %}
+<script type="text/javascript">
+$(document).ready(function() {
+		  $('.nav-toggle').click(function(){
+			//get collapse content selector
+			var collapse_content_selector = $(this).attr('href');					
+ 
+			//make the collapse content to be shown or hide
+			var toggle_switch = $(this);
+			$(collapse_content_selector).toggle(function(){
+			  if($(this).css('display')=='none'){
+                                //change the button label to be 'Show'
+				toggle_switch.html('{{show_label}}');
+			  }else{
+                                //change the button label to be 'Hide'
+				toggle_switch.html('{{hide_label}}');
+			  }
+			});
+		  });
+ 
+		});	
+</script>
+{% endmacro %}
+{% macro dynamic_checkbox() %}
+    <script type="text/javascript">
+    $(function () {
+        $('.button-checkbox').each(function () {
+    
+            // Settings
+            var $widget = $(this),
+                $button = $widget.find('button'),
+                $checkbox = $widget.find('input:checkbox'),
+                color = $button.data('color'),
+                settings = {
+                    on: {
+                        icon: 'glyphicon glyphicon-check'
+                    },
+                    off: {
+                        icon: 'glyphicon glyphicon-unchecked'
+                    }
+                };
+    
+            // Event Handlers
+            $button.on('click', function () {
+                $checkbox.prop('checked', !$checkbox.is(':checked'));
+                $checkbox.triggerHandler('change');
+                updateDisplay();
+            });
+            $checkbox.on('change', function () {
+                updateDisplay();
+            });
+    
+            // Actions
+            function updateDisplay() {
+                var isChecked = $checkbox.is(':checked');
+    
+                // Set the button's state
+                $button.data('state', (isChecked) ? "on" : "off");
+    
+                // Set the button's icon
+                $button.find('.state-icon')
+                    .removeClass()
+                    .addClass('state-icon ' + settings[$button.data('state')].icon);
+    
+                // Update the button's color
+                if (isChecked) {
+                    $button
+                        .removeClass('btn-default')
+                        .addClass('btn-' + color + ' active');
+                }
+                else {
+                    $button
+                        .removeClass('btn-' + color + ' active')
+                        .addClass('btn-default');
+                }
+            }
+    
+            // Initialization
+            function init() {
+    
+                updateDisplay();
+    
+                // Inject the icon if applicable
+                if ($button.find('.state-icon').length == 0) {
+                    $button.prepend('<i class="state-icon ' + settings[$button.data('state')].icon + '"></i> ');
+                }
+            }
+            init();
+        });
+    });
+    </script>
+{% endmacro %}

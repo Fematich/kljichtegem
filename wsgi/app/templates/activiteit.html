@@ -1,0 +1,9 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+{% set active_page = "Activiteiten" %}
+{% block css %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'vendor/timeline/timeline.css') }}" rel="stylesheet" media="screen">
+{% endblock %}
+{% block body %}
+{% endblock %}

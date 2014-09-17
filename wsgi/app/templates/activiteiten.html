@@ -1,0 +1,65 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+{% set active_page = "Activiteiten" %}
+{% block css %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'vendor/timeline/timeline.css') }}" rel="stylesheet" media="screen">
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="page-header text-center">
+        <h1 id="timeline">Komende activiteiten</h1>
+    </div>
+     <ul class="timeline">
+        <li>
+          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <img class="img-responsive" src="http://www.rospa.com/homesafety//Images/barbecue.jpg" />
+              
+            </div>
+            <div class="timeline-body">
+        <h2>BBQ KLJ Lichtervelde</h2> 
+              <p>bla bla bla en meer bla bla bla</p>
+              
+            </div>
+            
+            <div class="timeline-footer">
+                <i class="glyphicon glyphicon-calendar"> 21/11/2014</i>
+                <i class="pull-right glyphicon glyphicon-euro"> 15</i>
+                <br>
+                <i class="glyphicon glyphicon-map-marker"> KLJ lokaal</i>
+                
+            </div>
+          </div>
+        </li>
+        
+        <li  class="timeline-inverted">
+          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <img class="img-responsive" src="http://hdfons.com/wp-content/uploads/2013/01/marylin-paintball-wallpaper.png" />
+              
+            </div>
+            <div class="timeline-body">
+        <h2>Paintball</h2>
+            <p>bla bla bla en NOG meer bla bla bla. Het wordt de adljfafaj;lfaj blauwe plekken verzekerd! ....</p>   
+            </div>
+            
+            <div class="timeline-footer">
+                <i class="glyphicon glyphicon-calendar"> 21/11/2014</i>
+                <i class="pull-right glyphicon glyphicon-euro"> 15</i>
+                <br>
+                <i class="glyphicon glyphicon-map-marker"> KLJ lokaal</i>
+                
+            </div>
+          </div>
+        </li>
+        
+        <li class="clearfix" style="float: none;"></li>
+    </ul>
+</div>
+{% endblock %}
+{% block footscript %}
+    <link href="{{ url_for('static', filename = 'vendor/timeline/timeline.js') }}" rel="stylesheet" media="screen">
+{% endblock %}

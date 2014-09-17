@@ -1,0 +1,49 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+{% set active_page = "KLJ Ichtegem" %}
+{% block css %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'css/carousel.css') }}" rel="stylesheet" media="screen">
+{% endblock %}
+{% block body %}
+<div class="container">
+
+      <div class="row row-offcanvas row-offcanvas-right">
+
+        <div class="col-xs-12 col-sm-9">
+          <p class="pull-right visible-xs">
+            <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
+          </p>
+          <div class="jumbotron">
+            <h1>KLJ Ichtegem</h1>
+            <p>De gezelligste KLJ van het land!</p>
+          </div>
+          <div class="row">
+              
+            
+            <div>
+                <p>Welkom op de website van , laatste nieuwtje: </p>
+            </div><!--/span-->
+          </div><!--/row-->
+        </div><!--/span-->
+
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+          <div class="list-group">
+            <br>
+            <h3>Volgende activiteiten:</h3>
+            <ul style="list-style: none;">
+            <li> <a href="#" >BBQ KLJ Lichtervelde</a> <br><i class="glyphicon glyphicon-calendar"> 21/11/2014</i></li>
+            <li><a href="#" >Paintball</a> <br> <i class="glyphicon glyphicon-calendar"> 21/11/2014</i></li>
+            </ul>         
+         </div>
+<hr>
+            Blijft automatisch op de hoogte van al onze activiteiten via <a href="#" >deze ical-feed</a>.
+        </div><!--/span-->
+      </div><!--/row-->
+
+      <hr>
+
+    </div><!--/.container-->
+
+
+{% endblock %}
