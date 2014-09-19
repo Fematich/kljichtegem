@@ -32,7 +32,6 @@ def newevent():
         form.populate_obj(event)
         db.session.add(event)
         db.session.commit()
-        
         return redirect(url_for("app.bestuur"))
     else:
         flash("No event created")
