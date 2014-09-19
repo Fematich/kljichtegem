@@ -9,5 +9,5 @@ except IOError:
     pass
 from run import app as application
 
-from application import *
+from app import *
 db.create_all()
