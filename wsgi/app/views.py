@@ -28,10 +28,11 @@ def newevent():
     form = CreateEventForm()
     event=Event()
     if form.validate_on_submit():
+        flash("Event created succesfully")
         form.populate_obj(event)
         db.session.add(event)
         db.session.commit()
-        flash("Event created succesfully")
+        
         return redirect(url_for("app.bestuur"))
     else:
         flash("No event created")
