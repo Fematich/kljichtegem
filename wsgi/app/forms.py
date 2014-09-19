@@ -20,6 +20,6 @@ class CreateEventForm(Form):
     title = TextField('title', validators = [Required()])
     image = TextField('image')
     description = TextAreaField('description')
-    timestamp = DateTimeField('timestamp', default='',validators=[Required()], format='%d/%m/%Y %H:%M:%S')
+    #timestamp = DateTimeField('timestamp', default='',validators=[Required()], format='%d/%m/%Y %H:%M:%S')
     location = TextAreaField('location')
     price = IntegerField()
