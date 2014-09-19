@@ -32,5 +32,7 @@ def newevent():
         db.session.add(event)
         db.session.commit()
         flash("Event created succesfully")
-        return redirect(url_for("admin.newevent"))
+        return redirect(url_for("app.bestuur"))
+    else:
+        flash("No event created")
     return render_template('newevent.html',form=form)
