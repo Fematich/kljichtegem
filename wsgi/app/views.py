@@ -32,7 +32,7 @@ def feestweekend():
 def lidworden():
     return render_template('lidworden.html',events=Event.getnext(x=3))
     
-@app.route('/calendar.ics')
+@app.route('/calendar2.ics')
 def calendar():
     evs=Event.getics()#'BEGIN:VCALENDAR\nPRODID:KLJ Ichtegem\nVERSION:2.0\nBEGIN:VEVENT\nDTSTAMP:20140920T232416Z\nDTSTART:20150101T000000Z\nSUMMARY:My cool event\nUID:1c790008-3882-47e1-9cac-8ee60ec77770@1c79.org\nEND:VEVENT\nEND:VCALENDAR'
     return Response(evs, mimetype='text/ics')
