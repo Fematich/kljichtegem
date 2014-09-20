@@ -49,7 +49,6 @@ class Event(db.Model):
     def getnext(x=10):
         today=date.today()
         return Event.query.filter(Event.date>today).limit(x).all()
-        
 
 class Boardmember(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,5 +59,7 @@ class Boardmember(db.Model):
     facebook = db.Column(db.String(120))
     cellphone = db.Column(db.String(15))
     
+    def fblink(self):
+        return "https://www.facebook.com/"+self.facebook
     def __repr__(self):
         return '<bestuurslid %r>' % (self.name)

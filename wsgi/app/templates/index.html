@@ -23,6 +23,7 @@
             
             <div>
                 <p>Welkom op de website van , laatste nieuwtje: </p>
+                uitleg om je in te schrijven etc...
             </div><!--/span-->
           </div><!--/row-->
         </div><!--/span-->
@@ -33,7 +34,7 @@
             <h3>Volgende activiteiten:</h3>
             <ul style="list-style: none;">
             {% for event in events %}
-                <li> <a href="#" >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar"> {{event.date}}</i></li>
+                <li> <a href={{url_for('activiteit',event_id=event.id)}} >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar"> {{event.date}}</i></li>
             {% endfor %}
             </ul>         
          </div>

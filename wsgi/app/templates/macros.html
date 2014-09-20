@@ -31,7 +31,7 @@
               
             </div>
             <div class="timeline-body">
-        <h2>{{event.title}}</h2> 
+        <h2><a href={{url_for('activiteit',event_id=event.id)}}>{{event.title}}</a></h2> 
               <p>{{event.description}}</p>
               
             </div>
@@ -55,7 +55,7 @@
               
             </div>
             <div class="timeline-body">
-        <h2>{{event.title}}</h2>
+        <h2><a href={{url_for('activiteit',event_id=event.id)}}>{{event.title}}</a></h2> 
             <p>{{event.description}}</p>   
             </div>
             

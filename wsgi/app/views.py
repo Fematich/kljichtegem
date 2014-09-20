@@ -2,7 +2,7 @@ from flask import Flask, flash, render_template, g, redirect, url_for
 
 from app import app
 from app import db
-from app.models import Event
+from app.models import Event, Boardmember
 from forms import CreateEventForm
 #from werkzeug.utils import secure_filename
 
@@ -22,7 +22,7 @@ def activiteit(event_id):
     
 @app.route('/bestuur')
 def bestuur():
-    return render_template('bestuur.html')
+    return render_template('bestuur.html',bestuursleden=Boardmember.query.all())
 
 @app.route('/nachtvantwodkapje')
 def feestweekend():
