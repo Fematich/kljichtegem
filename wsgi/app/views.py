@@ -1,4 +1,4 @@
-from flask import Flask, flash, render_template, g, redirect, url_for
+from flask import Flask, flash, render_template, g, redirect, url_for, Response
 
 from app import app
 from app import db
@@ -31,3 +31,8 @@ def feestweekend():
 @app.route('/lidworden')
 def lidworden():
     return render_template('lidworden.html',events=Event.getnext(x=3))
+    
+@app.route('/calendar.ics')
+def calendar():
+    evs='BEGIN:VCALENDAR\nPRODID:ics.py - http://git.io/lLljaA\nVERSION:2.0\nBEGIN:VEVENT\nDTSTAMP:20140920T231510Z\nDTSTART:20150101T000000Z\nSUMMARY:My cool event\nUID:dd247d5c-342a-4e45-a1a6-f1bd3af71bb1@dd24.org\nEND:VEVENT\nEND:VCALENDAR'
+    return Response(evs, mimetype='text/ics')

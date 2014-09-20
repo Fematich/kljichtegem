@@ -5,6 +5,9 @@
 """
 import logging
 from datetime import date
+
+from ics import Calendar, Event
+
 from app import app, db
 from flask.ext.security import UserMixin, RoleMixin
 
@@ -49,7 +52,17 @@ class Event(db.Model):
     def getnext(x=10):
         today=date.today()
         return Event.query.filter(Event.date>today).order_by(Event.date).limit(x).all()
-
+    
+    @staticmethod
+    def getics():
+        c = Calendar()
+        e = Event()
+        e.name = "My cool event"
+        e.begin = '2015-01-01 00:00:00'
+        c.events.append(e)
+        c.events
+        return str(c)
+        
 class Boardmember(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), unique=True)
