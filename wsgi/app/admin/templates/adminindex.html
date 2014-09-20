@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body  %}
+<hr>
 {% macro row_event(event) %}
 <tr>
     <td>{{event.title}}</td>
@@ -36,7 +37,7 @@
 	</div>
 </div>
 
-
+<hr>
 {% macro row_bestuurslid(bestuurslid) %}
 <tr>
     <td>{{bestuurslid.name}}</td>
@@ -66,4 +67,6 @@
         </div>
 	</div>
 </div>
+
+<hr>
 {% endblock %}

@@ -9,7 +9,7 @@ from forms import CreateEventForm
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html',events=Event.getnext(x=4))
+    return render_template('index.html',events=Event.getnext(x=3))
 
 @app.route('/activiteiten')
 def activiteiten():
@@ -18,7 +18,7 @@ def activiteiten():
 @app.route('/activiteit/<event_id>')
 def activiteit(event_id):
     event=Event.query.get_or_404(event_id)
-    return render_template('activiteit.html',event=event)
+    return render_template('activiteit.html',event=event,events=Event.getnext(x=3))
     
 @app.route('/bestuur')
 def bestuur():
@@ -28,14 +28,6 @@ def bestuur():
 def feestweekend():
     return render_template('feestweekend.html')
 
-#@app.route('/event/new', methods = ['GET', 'POST'])
-#def newevent():
-#    form = CreateEventForm()
-#    event=Event()
-#    if form.validate_on_submit():
-#        flash("Event created succesfully")
-#        form.populate_obj(event)
-#        db.session.add(event)
-#        db.session.commit()
-#        return redirect(url_for("bestuur"))
-#    return render_template('newevent.html',form=form)
+@app.route('/lidworden')
+def lidworden():
+    return render_template('lidworden.html',events=Event.getnext(x=3))
