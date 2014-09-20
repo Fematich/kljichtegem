@@ -6,7 +6,10 @@
 import logging
 from datetime import date
 
-from ics import Calendar, Event
+#from ics import Calendar, Event
+from icalendar import Calendar, Event
+import pytz
+from datetime import datetime
 
 from app import app, db
 from flask.ext.security import UserMixin, RoleMixin
@@ -55,12 +58,18 @@ class Event(db.Model):
     
     @staticmethod
     def getics():
-        c = Calendar(creator="KLJ Ichtegem")
-        e = Event()
-        e.name = "My cool event"
-        e.begin = '2015-01-01 00:00:00'
-        c.events.append(e)
-        c.events
+        #c = Calendar(creator="KLJ Ichtegem")
+        #e = Event()
+        #e.name = "My cool event"
+        #e.begin = '2015-01-01 00:00:00'
+        #c.events.append(e)
+        cal = Calendar()
+        cal['summary'] = 'KLJ Ichtegem agenda'
+        event = Event()
+        event.add('dtstart', datetime(2014, 10, 10, 10, 0, 0,
+                       tzinfo=pytz.timezone("Europe/Brussels")))
+        cal.add_component(event)
+        c=cal.to_ical()
         return str(c)
         
 class Boardmember(db.Model):
