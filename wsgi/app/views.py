@@ -9,11 +9,16 @@ from forms import CreateEventForm
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    return render_template('index.html',events=Event.getnext(x=4))
 
 @app.route('/activiteiten')
 def activiteiten():
-    return render_template('activiteiten.html')
+    return render_template('activiteiten.html',events=Event.getnext())
+
+@app.route('/activiteit/<event_id>')
+def activiteit(event_id):
+    event=Event.query.get_or_404(event_id)
+    return render_template('activiteit.html',event=event)
     
 @app.route('/bestuur')
 def bestuur():
@@ -32,7 +37,5 @@ def newevent():
         form.populate_obj(event)
         db.session.add(event)
         db.session.commit()
-        return redirect(url_for("app.bestuur"))
-    else:
-        flash("No event created")
+        return redirect(url_for("bestuur"))
     return render_template('newevent.html',form=form)

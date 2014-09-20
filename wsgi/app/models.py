@@ -4,8 +4,10 @@
 @date:      %(date)
 """
 import logging
+from datetime import date
 from app import app, db
-#from flask.ext.security import UserMixin, RoleMixin
+from wtforms.validators import Required
+from wtforms import DateField
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 logger=logging.getLogger("TODO")
@@ -36,12 +38,18 @@ class Event(db.Model):
     title = db.Column(db.String(255), unique=True)
     image = db.Column(db.String(512))
     description = db.Column(db.String(512))
-    #timestamp = db.Column(db.DateTime())
+    date = db.Column(db.Date())
     location = db.Column(db.String(120))
     price = db.Column(db.Integer)
     
     def __repr__(self):
         return '<Activiteit %r>' % (self.title)
+    
+    @staticmethod
+    def getnext(x=10):
+        today=date.today()
+        return Event.query.filter(Event.date>today).limit(x).all()
+        
 
 class Boardmember(db.Model):
     id = db.Column(db.Integer, primary_key=True)

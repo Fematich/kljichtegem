@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block script %}
+      {{ super() }}
+{% endblock %}
+
+{% block body  %}
+<div id="wrap">
+  <div class="container" id="main">
+      <div class="row">
+        <h3>Activiteiten <a href="{{url_for('admin.newevent')}}" class="btn" role="button">Voeg nieuwe activiteit toe</a></h3>
+        <ul>
+          {% for event in events %}
+                   <li> <a href="{{url_for('admin.editevent',event_id=event.id)}}">{{event.title}}</a> </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{% endblock %}

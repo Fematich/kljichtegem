@@ -22,58 +22,54 @@
   </form>
 {% endmacro %}
 
-{% macro challenge_block(challenge,size,challenge_images) %}
-<li class="col-md-{{size}}">
-  <div class="thumbnail" style="padding: 0">
-    <div class="centered" style="padding:4px;height:130px"> <img alt="300x200" style="max-height: 130px;max-width: 200px" src="{{challenge_images.url(challenge.id)}}.{{challenge.image_extension}}"> </div>
-    <div class="caption" style="height:240px">
-      <h5 class="dotted" style="height:20px; width:100%;color: black"><a href={{url_for('viewchallenge',challenge_id=challenge.id)}}>{{challenge.goal}}</a></h5>
-      <p> <i class="glyphicon glyphicon-user"></i> {{ challenge.user.username }} </p>
-      <div class="dotted" style="height:80px; width:100%;color: black">{{challenge.description}}</div>
-      <p><i class="glyphicon glyphicon-calendar"> </i><cite title="deadline"> {{challenge.deadline.strftime('%B %d, %Y')}}</cite></p>
-      <i class="glyphicon glyphicon-map-marker"> </i><cite title="location"> {{challenge.user.location}}</cite>
-      <p><i class="glyphicon glyphicon-tag"> </i><cite title="charity"> {{challenge.charities[0].name}}</cite></p>
+{% macro event_block_left(event) %}
+<li>
+    <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+        <div class="timeline-panel">
+            <div class="timeline-heading">
+              <img class="img-responsive" src={{event.image}} />
+              
+            </div>
+            <div class="timeline-body">
+        <h2>{{event.title}}</h2> 
+              <p>{{event.description}}</p>
+              
+            </div>
+            
+            <div class="timeline-footer">
+                <i class="glyphicon glyphicon-calendar"> {{event.date}}</i>
+                <i class="pull-right glyphicon glyphicon-euro"> {{event.price}}</i>
+                <br>
+                <i class="glyphicon glyphicon-map-marker"> {{event.location}}</i>
+                
+            </div>
+          </div>
+        </li>
+{% endmacro %}
+{% macro event_block_right(event) %}
+<li  class="timeline-inverted">
+          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <img class="img-responsive" src={{event.image}} />
+              
+            </div>
+            <div class="timeline-body">
+        <h2>{{event.title}}</h2>
+            <p>{{event.description}}</p>   
+            </div>
+            
+            <div class="timeline-footer">
+                <i class="glyphicon glyphicon-calendar"> {{event.date}}</i>
+                <i class="pull-right glyphicon glyphicon-euro"> {{event.price}}</i>
+                <br>
+                <i class="glyphicon glyphicon-map-marker"> {{event.location}}</i>
+                
+           </div>
     </div>
-    <div class="modal-footer" style="text-align: left">
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> <span class="sr-only">60% Complete</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6"><b>60%</b><br/>
-          <small>{{ g.user.username }}</small></div>
-        <div class="col-md-6"><b>{{momentjs(challenge.deadline).DaysUntil()}}</b><br/>
-          <small>days left</small></div>
-      </div>
-    </div>
-  </div>
 </li>
 {% endmacro %}
 
-{% macro groupchallenge_block(challenge,size,challenge_images) %}
-<li class="col-md-{{size}}">
-  <div class="thumbnail" style="padding: 0">
-    <div class="centered" style="padding:4px;height:130px"> <img  alt="300x200" style=";max-width: 200px;max-height: 130px" src="{{challenge_images.url(challenge.id)}}.{{challenge.image_extension}}"> </div>
-    <div class="caption" style="height:190px">
-      <h5 class="dotted" style="height:20px; width:100%;color: black"><a href={{url_for('viewgroupchallenge',groupchallenge_id=challenge.id)}}>{{challenge.goal}}</a></h5>
-      <div class="dotted" style="height:80px; width:100%;color: black">{{challenge.description}}</div>
-      <p><i class="glyphicon glyphicon-calendar"> </i><cite title="deadline"> {{challenge.deadline.strftime('%B %d, %Y')}}</cite></p>
-
-      <p><i class="glyphicon glyphicon-tag"> </i><cite title="charity"> {{challenge.charities[0].name}}</cite></p>
-    </div>
-    <div class="modal-footer" style="text-align: left">
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"> <span class="sr-only">60% Complete</span> </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6"><b>60%</b><br/>
-          <small>{{ g.user.username }}</small></div>
-        <div class="col-md-6"><b>{{momentjs(challenge.deadline).DaysUntil()}}</b><br/>
-          <small>days left</small></div>
-      </div>
-    </div>
-  </div>
-</li>
-{% endmacro %}
 {% macro image_areaselect(img_id) %}
 <script src="{{ url_for('static', filename = 'vendor/imgareaselect/scripts/jquery.imgareaselect.pack.js') }}"></script>
 <script type="text/javascript">

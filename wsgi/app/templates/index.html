@@ -32,8 +32,9 @@
             <br>
             <h3>Volgende activiteiten:</h3>
             <ul style="list-style: none;">
-            <li> <a href="#" >BBQ KLJ Lichtervelde</a> <br><i class="glyphicon glyphicon-calendar"> 21/11/2014</i></li>
-            <li><a href="#" >Paintball</a> <br> <i class="glyphicon glyphicon-calendar"> 21/11/2014</i></li>
+            {% for event in events %}
+                <li> <a href="#" >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar"> {{event.date}}</i></li>
+            {% endfor %}
             </ul>         
          </div>
 <hr>

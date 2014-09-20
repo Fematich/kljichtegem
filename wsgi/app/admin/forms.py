@@ -20,6 +20,14 @@ class CreateEventForm(Form):
     title = TextField('title', validators = [Required()])
     image = TextField('image')
     description = TextAreaField('description')
-    date = DateTimeField('date', validators=[Required()], format='%d/%m/%Y')
+    timestamp = DateTimeField('timestamp', default='',validators=[Required()], format='%d/%m/%Y %H:%M:%S')
     location = TextAreaField('location')
     price = IntegerField()
+
+class CreateBestuurslidForm(Form):
+    name = TextField('naam', validators = [Required()])
+    image = TextField('image')
+    function = TextField('function')
+    email = TextField('email')
+    facebook = TextField('facebook')
+    cellphone = TextField('cellphone')
