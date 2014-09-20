@@ -4,18 +4,66 @@
 {% endblock %}
 
 {% block body  %}
-<div id="wrap">
-  <div class="container" id="main">
-      <div class="row">
-        <h3>Activiteiten <a href="{{url_for('admin.newevent')}}" class="btn" role="button">Voeg nieuwe activiteit toe</a></h3>
-        <ul>
-          {% for event in events %}
-                   <li> <a href="{{url_for('admin.editevent',event_id=event.id)}}">{{event.title}}</a> </li>
-          {% endfor %}
-        </ul>
-      </div>
-    </div>
-  </div>
+{% macro row_event(event) %}
+<tr>
+    <td>{{event.title}}</td>
+    <td>{{event.date}}</td>
+    <form action="{{url_for('admin.editevent',event_id=event.id)}}"><td><p><button type="submit" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td></form>
+    <form action="{{url_for('admin.deleteevent',event_id=event.id)}}"><td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td></form>
+</tr>  
+{% endmacro %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Activiteiten <a href="{{url_for('admin.newevent')}}" class="btn" role="button">Voeg nieuwe activiteit toe</a></h3>
+            <div class="table-responsive"> 
+            <table id="mytable" class="table table-bordred table-striped">
+                <thead>
+                    <th>Naam</th>
+                    <th>datum</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                        {{row_event(event)}}
+                    {% endfor %}
+       
+                </tbody>
+            </table>
+        </div>
+	</div>
 </div>
+
+
+{% macro row_bestuurslid(bestuurslid) %}
+<tr>
+    <td>{{bestuurslid.name}}</td>
+    <form action="{{url_for('admin.editbestuurslid',bestuurslid_id=bestuurslid.id)}}"><td><p><button type="submit" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td></form>
+    <form action="{{url_for('admin.deletebestuurslid',bestuurslid_id=bestuurslid.id)}}"><td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td></form>
+</tr>  
+{% endmacro %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Bestuursleden <a href="{{url_for('admin.newbestuurslid')}}" class="btn" role="button">Voeg een nieuw bestuurslid toe</a></h3>
+            <div class="table-responsive"> 
+            <table id="mytable" class="table table-bordred table-striped">
+                <thead>
+                    <th>Naam</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </thead>
+                <tbody>
+                     {% for bestuurslid in bestuursleden %}
+                        {{row_bestuurslid(bestuurslid)}}
+                    {% endfor %}
+       
+                </tbody>
+            </table>
+        </div>
+	</div>
 </div>
 {% endblock %}

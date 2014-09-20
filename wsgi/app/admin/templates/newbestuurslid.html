@@ -1,14 +1,5 @@
 {% extends "base.html" %}
-{% block css %}
-    {{ super() }}
-    <link href="{{ url_for('static', filename = 'vendor/datepicker/css/datepicker.css') }}" rel="stylesheet">
-{% endblock %}
-{% from 'macros.html' import date_picker %}
-{% block script %}
-    {{ super() }}
-    <script src="{{ url_for('static', filename = 'vendor/datepicker/js/bootstrap-datepicker.js') }}"></script>
-    {{ date_picker("date") }}
-{% endblock %}
+
 {% block body %}
 <!--centraliseren-->
 <div id="wrap">
@@ -20,18 +11,18 @@
         <form action='' method="POST" enctype=multipart/form-data>
           {{form.hidden_tag()}}
           <fieldset>
-            <h3>Event</h3>
+            <h3>Bestuurslid</h3>
             <div class="form-group">
-              <label for="title">title</label>
-              {{form.title( class="form-control")}}
-                {% for error in form.errors.title %}
-                    <span style="color: red;" class="help-inline">{{name}}</span><br>
+              <label for="name">title</label>
+              {{form.name( class="form-control")}}
+                {% for error in form.errors.name %}
+                    <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="description">Description</label>
-                {{form.description( class="form-control", rows=3)}}
-                {% for error in form.errors.description %}
+              <label for="description">Functies</label>
+                {{form.function( class="form-control", rows=3)}}
+                {% for error in form.errors.function %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
@@ -43,27 +34,27 @@
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="location">location</label>
-              {{form.location( class="form-control", id="location")}}
-                {% for error in form.errors.location %}
+              <label for="location">emailadres</label>
+              {{form.email( class="form-control", id="email")}}
+                {% for error in form.errors.email %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="price">price</label>
-              {{form.price( class="form-control", id="price")}}
-                {% for error in form.errors.price %}
+              <label for="facebook">facebooknaam (wat na facebook.com/... komt)</label>
+              {{form.facebook( class="form-control", id="facebook")}}
+                {% for error in form.errors.facebook %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="date">date</label>
-              {{form.date( class="form-control", id="date")}}
-                {% for error in form.errors.date %}
+              <label for="cellphone">gsm-nummer</label>
+              {{form.cellphone( class="form-control", id="cellphone")}}
+                {% for error in form.errors.cellphone %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
-            <button type="submit" class="btn btn btn-primary"> Create </button>
+            <button type="submit" class="btn btn btn-primary"> Save </button>
           </div>
        </div>
        <div class="col-md-5"> 

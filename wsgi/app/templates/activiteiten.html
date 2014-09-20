@@ -14,9 +14,10 @@
      <ul class="timeline">
         {% for event in events %}
             {%  if loop.index is divisibleby(2) %}
-                {{event_block_left(event)}}
-            {% else %}
                 {{event_block_right(event)}}
+            {% else %}
+                
+{{event_block_left(event)}}
             {% endif %}
         {% endfor %}
         

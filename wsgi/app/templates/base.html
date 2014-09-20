@@ -39,11 +39,20 @@
 
   <body>
     {% set active_page = active_page|default('index') -%}
+{% if current_user.is_authenticated() %} 
     {% set navigation_bar = [
-    (url_for('activiteiten'), 'Activiteiten'),
-    (url_for('bestuur'), 'Bestuur'),
-    (url_for('feestweekend'), "Nacht van 't Wodkapje")
-] -%}
+        (url_for('activiteiten'), 'Activiteiten'),
+        (url_for('bestuur'), 'Bestuur'),
+        (url_for('feestweekend'), "Nacht van 't Wodkapje"),
+        (url_for('admin.index'), "admin")
+    ] -%}
+{% else %}
+    {% set navigation_bar = [
+        (url_for('activiteiten'), 'Activiteiten'),
+        (url_for('bestuur'), 'Bestuur'),
+        (url_for('feestweekend'), "Nacht van 't Wodkapje")
+    ] -%}
+{% endif %}
 {% set active_page = active_page|default('index') -%}
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">

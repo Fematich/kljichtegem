@@ -6,6 +6,26 @@
     <link href="{{ url_for('static', filename = 'vendor/timeline/timeline.css') }}" rel="stylesheet" media="screen">
 {% endblock %}
 {% block body %}
-<h2>{{event.title}}</h2> 
-<p>{{event.description}}</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-8"> 
+            <h2>{{event.title}}</h2>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="img-responsive" src={{event.image}} />
+        </div>
+        <div class="col-md-8"> 
+            {{event.description}}
+             <br><i class="glyphicon glyphicon-calendar"> {{event.date}}</i>
+             <br><i class="glyphicon glyphicon-euro"> {{event.price}}</i>
+             <br><i class="glyphicon glyphicon-map-marker"> {{event.location}}</i>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -7,7 +7,7 @@
 {% block script %}
     {{ super() }}
     <script src="{{ url_for('static', filename = 'vendor/datepicker/js/bootstrap-datepicker.js') }}"></script>
-    {{ date_picker("timestamp") }}
+    {{ date_picker("date") }}
 {% endblock %}
 {% block body %}
 <!--centraliseren-->
@@ -57,15 +57,14 @@
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="timestamp">timestamp</label>
-              {{form.timestamp( class="form-control", id="timestamp")}}
-                {% for error in form.errors.timestamp %}
+              <label for="date">date</label>
+              {{form.date( class="form-control", id="date")}}
+                {% for error in form.errors.date %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
-            <button type="submit" class="btn btn btn-primary"> Create </button>
+            <button type="submit" class="btn btn btn-primary"> Save </button>
           </div>
-
        </div>
        <div class="col-md-5"> 
        </fieldset>

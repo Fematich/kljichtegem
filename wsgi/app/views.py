@@ -28,14 +28,14 @@ def bestuur():
 def feestweekend():
     return render_template('feestweekend.html')
 
-@app.route('/event/new', methods = ['GET', 'POST'])
-def newevent():
-    form = CreateEventForm()
-    event=Event()
-    if form.validate_on_submit():
-        flash("Event created succesfully")
-        form.populate_obj(event)
-        db.session.add(event)
-        db.session.commit()
-        return redirect(url_for("bestuur"))
-    return render_template('newevent.html',form=form)
+#@app.route('/event/new', methods = ['GET', 'POST'])
+#def newevent():
+#    form = CreateEventForm()
+#    event=Event()
+#    if form.validate_on_submit():
+#        flash("Event created succesfully")
+#        form.populate_obj(event)
+#        db.session.add(event)
+#        db.session.commit()
+#        return redirect(url_for("bestuur"))
+#    return render_template('newevent.html',form=form)

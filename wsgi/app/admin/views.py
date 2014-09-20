@@ -21,8 +21,7 @@ logger=logging.getLogger("TODO")
 @admin.route('/')
 @admin.route('/index')
 def index():
-    events=Event.query.all()
-    return render_template('adminindex.html',events=events)
+    return render_template('adminindex.html',events=Event.query.all(),bestuursleden=Boardmember.query.all())
 
 @admin.route('/event/new', methods = ['GET', 'POST'])
 def newevent():
@@ -48,20 +47,28 @@ def editevent(event_id=None):
         return redirect(url_for("admin.index"))
     return render_template('newevent.html',form=form)
 
+@admin.route('/event/delete/<event_id>', methods = ['GET','POST'])
+def deleteevent(event_id=None):
+    event=Event.query.get(event_id)
+    db.session.delete(event)
+    db.session.commit()
+    flash("Event deleted")
+    return redirect(url_for('admin.index'))
+
 @admin.route('/bestuurslid/new', methods = ['GET', 'POST'])
 def newbestuurslid():
     form = CreateBestuurslidForm()
-    event=Event()
+    bestuurslid=Boardmember()
     if form.validate_on_submit():
-        form.populate_obj(event)
-        db.session.add(event)
+        form.populate_obj(bestuurslid)
+        db.session.add(bestuurslid)
         db.session.commit()
         flash("Bestuurslid created succesfully")
         return redirect(url_for("admin.index"))
     return render_template('newbestuurslid.html',form=form)
 
 @admin.route('/bestuurslid/edit/<bestuurslid_id>', methods = ['GET', 'POST'])
-def editevent(bestuurslid_id=None):
+def editbestuurslid(bestuurslid_id=None):
     bestuurslid=Boardmember.query.get_or_404(bestuurslid_id)
     form = CreateBestuurslidForm(obj=bestuurslid)
     if form.validate_on_submit():
@@ -71,3 +78,11 @@ def editevent(bestuurslid_id=None):
         flash("Bestuurlid edited succesfully")
         return redirect(url_for("admin.index"))
     return render_template('newbestuurslid.html',form=form)
+    
+@admin.route('/bestuurslid/delete/<bestuurslid_id>', methods = ['GET','POST'])
+def deletebestuurslid(bestuurslid_id=None):
+    bestuurslid=Boardmember.query.get(bestuurslid_id)
+    db.session.delete(bestuurslid)
+    db.session.commit()
+    flash("Bestuurslid deleted")
+    return redirect(url_for('admin.index'))
