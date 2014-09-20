@@ -55,7 +55,7 @@ class Event(db.Model):
     
     @staticmethod
     def getics():
-        c = Calendar()
+        c = Calendar(creator="KLJ Ichtegem")
         e = Event()
         e.name = "My cool event"
         e.begin = '2015-01-01 00:00:00'

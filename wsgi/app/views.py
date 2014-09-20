@@ -34,5 +34,5 @@ def lidworden():
     
 @app.route('/calendar.ics')
 def calendar():
-    evs='BEGIN:VCALENDAR\nPRODID:ics.py - http://git.io/lLljaA\nVERSION:2.0\nBEGIN:VEVENT\nDTSTAMP:20140920T231510Z\nDTSTART:20150101T000000Z\nSUMMARY:My cool event\nUID:dd247d5c-342a-4e45-a1a6-f1bd3af71bb1@dd24.org\nEND:VEVENT\nEND:VCALENDAR'
+    evs='BEGIN:VCALENDAR\nPRODID:KLJ Ichtegem\nVERSION:2.0\nBEGIN:VEVENT\nDTSTAMP:20140920T232416Z\nDTSTART:20150101T000000Z\nSUMMARY:My cool event\nUID:1c790008-3882-47e1-9cac-8ee60ec77770@1c79.org\nEND:VEVENT\nEND:VCALENDAR'
     return Response(evs, mimetype='text/ics')
