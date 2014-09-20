@@ -7,7 +7,7 @@ import logging
 from datetime import date
 
 #from ics import Calendar, Event
-from icalendar import Calendar, Event
+from icalendar import Calendar, Event as iEvent
 import pytz
 from datetime import datetime
 
@@ -65,10 +65,11 @@ class Event(db.Model):
         #c.events.append(e)
         cal = Calendar()
         cal['summary'] = 'KLJ Ichtegem agenda'
-        event = Event()
-        event.add('dtstart', datetime(2014, 10, 10, 10, 0, 0,
+        ev = iEvent()
+        ev.add('dtstart', datetime(2014, 10, 10, 10, 0, 0,
                        tzinfo=pytz.timezone("Europe/Brussels")))
-        cal.add_component(event)
+        ev.add('summary', 'eerste activiteit')
+        cal.add_component(ev)
         c=cal.to_ical()
         return str(c)
         
