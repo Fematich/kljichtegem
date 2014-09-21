@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-8"> 
             {{event.description}}
-             <br><i class="glyphicon glyphicon-calendar"> {{event.begin.strftime('%d/%m/%y van %H:%m')}} tot {{event.end.strftime('%H:%m')}}</i>
+             <br><i class="glyphicon glyphicon-calendar"> {{event.begin.strftime('%d/%m/%y van %H:%M')}} tot {{event.end.strftime('%H:%M')}}</i>
              <br><i class="glyphicon glyphicon-map-marker"> {{event.location}}</i>
              <br><i class="glyphicon glyphicon-euro"> {{event.price}}</i>
         </div>
@@ -53,7 +53,7 @@
             <a href={{url_for('activiteiten')}} ><h3>Volgende activiteiten:</h3></a> 
             <ul style="list-style: none;">
             {% for event in events %}
-                <li> <a href={{url_for('activiteit',event_id=event.id)}} >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar"> {{event.begin.strftime('%d/%m/%y %H:%m')}}</i></li>
+                <li> <a href={{url_for('activiteit',event_id=event.id)}} >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar"> {{event.begin.strftime('%d/%m/%y %H:%M')}}</i></li>
             {% endfor %}
             </ul>         
          </div>
