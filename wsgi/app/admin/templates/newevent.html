@@ -1,15 +1,12 @@
 {% extends "base.html" %}
 {% block css %}
     {{ super() }}
-    <link href="{{ url_for('static', filename = 'vendor/datepicker/css/datepicker.css') }}" rel="stylesheet">
 {% endblock %}
-{% from 'macros.html' import date_picker %}
-{% block script %}
+{% block footscript %}
     {{ super() }}
-    <script src="{{ url_for('static', filename = 'vendor/datepicker/js/bootstrap-datepicker.js') }}"></script>
-    {{ date_picker("date") }}
 {% endblock %}
 {% block body %}
+
 <!--centraliseren-->
 <div id="wrap">
   <div class="container">
@@ -57,9 +54,16 @@
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="date">date</label>
-              {{form.date( class="form-control", id="date")}}
-                {% for error in form.errors.date %}
+              <label for="begin">begin</label>
+              {{form.begin( class="form-control", id="begin")}}
+                {% for error in form.errors.begin %}
+                    <span style="color: red;" class="help-inline">{{error}}</span><br>
+                {% endfor %}<br>
+            </div>
+            <div class="form-group">
+              <label for="end">einde</label>
+              {{form.end( class="form-control", id="end")}}
+                {% for error in form.errors.end %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>

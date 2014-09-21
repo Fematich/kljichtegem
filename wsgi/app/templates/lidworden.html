@@ -39,7 +39,7 @@ nog meer bla bal
             <a href={{url_for('activiteiten')}} ><h3>Volgende activiteiten:</h3></a> 
             <ul style="list-style: none;">
             {% for event in events %}
-                <li> <a href={{url_for('activiteit',event_id=event.id)}} >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar"> {{event.date}}</i></li>
+                <li> <a href={{url_for('activiteit',event_id=event.id)}} >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar"> {{event.begin.strftime('%d/%m/%y %H:%m')}}</i></li>
             {% endfor %}
             </ul>         
          </div>

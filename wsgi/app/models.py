@@ -4,10 +4,8 @@
 @date:      %(date)
 """
 import logging
-from datetime import date
 
-#from ics import Calendar, Event
-from icalendar import Calendar, Event as iEvent
+from icalendar import Calendar, vText, Event as iEvent
 import pytz
 from datetime import datetime
 
@@ -44,7 +42,8 @@ class Event(db.Model):
     title = db.Column(db.String(255), unique=True)
     image = db.Column(db.String(512))
     description = db.Column(db.String(512))
-    date = db.Column(db.Date())
+    begin = db.Column(db.DateTime())
+    end = db.Column(db.DateTime())
     location = db.Column(db.String(120))
     price = db.Column(db.Integer)
     
@@ -53,23 +52,21 @@ class Event(db.Model):
     
     @staticmethod
     def getnext(x=10):
-        today=date.today()
-        return Event.query.filter(Event.date>today).order_by(Event.date).limit(x).all()
+        today=datetime.now()
+        return Event.query.filter(Event.begin>today).order_by(Event.begin).limit(x).all()
     
     @staticmethod
     def getics():
-        #c = Calendar(creator="KLJ Ichtegem")
-        #e = Event()
-        #e.name = "My cool event"
-        #e.begin = '2015-01-01 00:00:00'
-        #c.events.append(e)
         cal = Calendar()
         cal['summary'] = 'KLJ Ichtegem agenda'
-        ev = iEvent()
-        ev.add('dtstart', datetime(2014, 10, 10, 10, 0, 0,
-                       tzinfo=pytz.timezone("Europe/Brussels")))
-        ev.add('summary', 'eerste activiteit')
-        cal.add_component(ev)
+        for evt in Event.query.all():
+            ev = iEvent()
+            ev.add('dtstart', evt.begin.replace(tzinfo=pytz.timezone("Europe/Brussels")))
+            ev.add('dtend', evt.end.replace(tzinfo=pytz.timezone("Europe/Brussels")))
+            ev['location'] = vText(evt.location)
+            ev.add('summary', evt.title)
+            ev.add('description', evt.description+"\nprijs: "+str(evt.price)+" EUR")
+            cal.add_component(ev)
         c=cal.to_ical()
         return str(c)
         
