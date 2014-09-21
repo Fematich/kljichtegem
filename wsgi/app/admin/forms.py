@@ -10,19 +10,19 @@ from app import app
 from wtforms import DateTimeField, TextAreaField, TextField, IntegerField
 #from flask_wtf.file import FileField, FileAllowed
 from flask.ext.wtf import Form
-from wtforms.validators import Required
+from wtforms.validators import Required, Length
 
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 logger=logging.getLogger("TODO")
 
 class CreateEventForm(Form):
-    title = TextField('title', validators = [Required()])
-    image = TextField('image')
-    description = TextAreaField('description')
+    title = TextField('title', validators = [Required(),Length(max=255)])
+    image = TextField('image',validators=[Length(max=512)])
+    description = TextAreaField('description',validators=[Length(max=512)])
     begin = DateTimeField('date', validators=[Required()], format='%d/%m/%Y %H:%M')
     end = DateTimeField('date', validators=[Required()], format='%d/%m/%Y %H:%M')
-    location = TextAreaField('location')
+    location = TextAreaField('location',validators=[Length(max=120)])
     price = IntegerField()
 
 class CreateBestuurslidForm(Form):
