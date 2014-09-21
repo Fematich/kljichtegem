@@ -1,9 +1,27 @@
 {% extends "base.html" %}
 {% block css %}
     {{ super() }}
+    <link href="{{ url_for('static', filename = 'vendor/datetimepicker/css/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" media="screen">
 {% endblock %}
+
 {% block footscript %}
     {{ super() }}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/datetimepicker/js/nl.js') }}"></script>
+    <script type="text/javascript">
+          $(document).ready(function () {
+                $('#begin').datetimepicker({
+                    language: 'nl'
+                });
+            });
+                
+     </script>
+     <script type="text/javascript">
+            $(document).ready(function () {
+                $('#end').datetimepicker();
+            });
+     </script>
 {% endblock %}
 {% block body %}
 
@@ -17,51 +35,51 @@
         <form action='' method="POST" enctype=multipart/form-data>
           {{form.hidden_tag()}}
           <fieldset>
-            <h3>Event</h3>
+            <h3>Activiteit</h3>
             <div class="form-group">
-              <label for="title">title</label>
+              <label for="title">naam</label>
               {{form.title( class="form-control")}}
                 {% for error in form.errors.title %}
                     <span style="color: red;" class="help-inline">{{name}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="description">Description</label>
+              <label for="description">beschrijving</label>
                 {{form.description( class="form-control", rows=3)}}
                 {% for error in form.errors.description %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="image">image</label>
+              <label for="image">afbeelding</label>
               {{form.image( class="form-control", id="image")}}
                 {% for error in form.errors.image %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="location">location</label>
+              <label for="location">plaats</label>
               {{form.location( class="form-control", id="location")}}
                 {% for error in form.errors.location %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="price">price</label>
+              <label for="price">prijs</label>
               {{form.price( class="form-control", id="price")}}
                 {% for error in form.errors.price %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
-            <div class="form-group">
-              <label for="begin">begin</label>
-              {{form.begin( class="form-control", id="begin")}}
+            <div class="form-group" id="begin">
+              <label for="begin">begin [formaat: dd/mm/YYYY hh:mm]</label>
+              {{form.begin( class="form-control", type="text", id="begin")}}
                 {% for error in form.errors.begin %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="end">einde</label>
+              <label for="end">einde [formaat: dd/mm/YYYY hh:mm]</label>
               {{form.end( class="form-control", id="end")}}
                 {% for error in form.errors.end %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>

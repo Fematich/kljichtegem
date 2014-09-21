@@ -20,14 +20,14 @@
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="description">Functies</label>
+              <label for="description">functies</label>
                 {{form.function( class="form-control", rows=3)}}
                 {% for error in form.errors.function %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>
                 {% endfor %}<br>
             </div>
             <div class="form-group">
-              <label for="image">image</label>
+              <label for="image">afbeelding</label>
               {{form.image( class="form-control", id="image")}}
                 {% for error in form.errors.image %}
                     <span style="color: red;" class="help-inline">{{error}}</span><br>

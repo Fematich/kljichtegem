@@ -29,6 +29,7 @@ def newevent():
     event=Event()
     if form.validate_on_submit():
         form.populate_obj(event)
+        event.image=event.image.replace("https://www.dropbox.com","https://dl.dropboxusercontent.com/")
         db.session.add(event)
         db.session.commit()
         flash("Event created succesfully")
@@ -41,6 +42,7 @@ def editevent(event_id=None):
     form = CreateEventForm(obj=event)
     if form.validate_on_submit():
         form.populate_obj(event)
+        event.image=event.image.replace("https://www.dropbox.com","https://dl.dropboxusercontent.com/")
         db.session.add(event)
         db.session.commit()
         flash("Event edited succesfully")

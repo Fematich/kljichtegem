@@ -1,12 +1,59 @@
 <!-- extend base layout -->
 {% extends "base.html" %}
 {% set active_page = "Activiteiten" %}
-{% from 'macros.html' import event_block_right, event_block_left %}
 {% block css %}
     {{ super() }}
     <link href="{{ url_for('static', filename = 'vendor/timeline/timeline.css') }}" rel="stylesheet" media="screen">
 {% endblock %}
 {% block body %}
+{% macro event_block_left(event) %}
+<li>
+    <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+        <div class="timeline-panel">
+            <div class="timeline-heading">
+              <img class="img-responsive" src={{event.image}} />
+              
+            </div>
+            <div class="timeline-body">
+        <h2><a href={{url_for('activiteit',event_id=event.id)}}>{{event.title}}</a></h2> 
+              <p>{{event.description}}</p>
+              
+            </div>
+            
+            <div class="timeline-footer">
+                <i class="glyphicon glyphicon-calendar"> {{event.begin.strftime('%d/%m/%y %H:%m')}}</i>
+                <i class="pull-right glyphicon glyphicon-euro"> {{event.price}}</i>
+                <br>
+                <i class="glyphicon glyphicon-map-marker"> {{event.location}}</i>
+                
+            </div>
+          </div>
+        </li>
+{% endmacro %}
+{% macro event_block_right(event) %}
+<li  class="timeline-inverted">
+          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="binnenkort... " id=""></i></a></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <img class="img-responsive" src={{event.image}} />
+              
+            </div>
+            <div class="timeline-body">
+        <h2><a href={{url_for('activiteit',event_id=event.id)}}>{{event.title}}</a></h2> 
+            <p>{{event.description}}</p>   
+            </div>
+            
+            <div class="timeline-footer">
+                <i class="glyphicon glyphicon-calendar"> {{event.begin.strftime('%d/%m/%y %H:%m')}}</i>
+                <i class="pull-right glyphicon glyphicon-euro"> {{event.price}}</i>
+                <br>
+                <i class="glyphicon glyphicon-map-marker"> {{event.location}}</i>
+                
+           </div>
+    </div>
+</li>
+{% endmacro %}
+
 <div class="container">
     <div class="page-header text-center">
         <h1 id="timeline">Komende activiteiten</h1>
