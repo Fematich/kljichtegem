@@ -8,7 +8,7 @@
 {% block body %}
 {% macro event_block_left(event) %}
 <li>
-    <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="binnen {{momentjs(event.begin).DaysUntil()}} dagen" id="activiteit{{event.id}}"></i></a></div>
+    <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="over {{momentjs(event.begin).DaysUntil()}} dagen" id="activiteit{{event.id}}"></i></a></div>
         <div class="timeline-panel">
             <div class="timeline-heading">
 	      {%if event.image!=""%}
@@ -33,7 +33,7 @@
 {% endmacro %}
 {% macro event_block_right(event) %}
 <li  class="timeline-inverted">
-          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="binnen {{momentjs(event.begin).DaysUntil()}} dagen" id="activiteit{{event.id}}"></i></a></div>
+          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="over {{momentjs(event.begin).DaysUntil()}} dagen" id="activiteit{{event.id}}"></i></a></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               {%if event.image!=""%}
