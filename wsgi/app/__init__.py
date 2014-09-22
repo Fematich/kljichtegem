@@ -7,9 +7,13 @@ app.config.from_object('config')
 db = SQLAlchemy(app)
 
 from models import User, Role
+from momentjs import momentjs
 # flask-security
 user_datastore = SQLAlchemyUserDatastore(db, User, Role)
 security = Security(app, user_datastore)
+
+# jinja globals
+app.jinja_env.globals['momentjs'] = momentjs
 
 from views import *
 

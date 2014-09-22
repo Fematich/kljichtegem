@@ -8,7 +8,7 @@
 {% block body %}
 {% macro event_block_left(event) %}
 <li>
-    <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="11 hours ago via Twitter" id=""></i></a></div>
+    <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="binnen {{momentjs(event.begin).DaysUntil()}} dagen" id="activiteit{{event.id}}"></i></a></div>
         <div class="timeline-panel">
             <div class="timeline-heading">
               <img class="img-responsive" src={{event.image}} />
@@ -32,7 +32,7 @@
 {% endmacro %}
 {% macro event_block_right(event) %}
 <li  class="timeline-inverted">
-          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="binnenkort... " id=""></i></a></div>
+          <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="binnen {{momentjs(event.begin).DaysUntil()}} dagen" id="activiteit{{event.id}}"></i></a></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
               <img class="img-responsive" src={{event.image}} />
@@ -74,5 +74,6 @@
 </div>
 {% endblock %}
 {% block footscript %}
-    <link href="{{ url_for('static', filename = 'vendor/timeline/timeline.js') }}" rel="stylesheet" media="screen">
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/timeline/timeline.js') }}"></script>
 {% endblock %}
