@@ -11,8 +11,9 @@
     <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record" rel="tooltip" title="binnen {{momentjs(event.begin).DaysUntil()}} dagen" id="activiteit{{event.id}}"></i></a></div>
         <div class="timeline-panel">
             <div class="timeline-heading">
-              <img class="img-responsive" src={{event.image}} />
-              
+	      {%if event.image!=""%}
+                <img class="img-responsive" src={{event.image}} />
+              {% endif %}
             </div>
             <div class="timeline-body">
         <h2><a href={{url_for('activiteit',event_id=event.id)}}>{{event.title}}</a></h2> 
@@ -35,7 +36,9 @@
           <div class="timeline-badge primary"><a><i class="glyphicon glyphicon-record invert" rel="tooltip" title="binnen {{momentjs(event.begin).DaysUntil()}} dagen" id="activiteit{{event.id}}"></i></a></div>
           <div class="timeline-panel">
             <div class="timeline-heading">
-              <img class="img-responsive" src={{event.image}} />
+              {%if event.image!=""%}
+                <img class="img-responsive" src={{event.image}} />
+              {% endif %}
               
             </div>
             <div class="timeline-body">

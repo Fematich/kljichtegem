@@ -39,9 +39,9 @@ class Role(db.Model, RoleMixin):
 
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255), unique=True)
+    title = db.Column(db.String(255))
     image = db.Column(db.String(512))
-    description = db.Column(db.String(512))
+    description = db.Column(db.String(1024))
     begin = db.Column(db.DateTime())
     end = db.Column(db.DateTime())
     location = db.Column(db.String(120))

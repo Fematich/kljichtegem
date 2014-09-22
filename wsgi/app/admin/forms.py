@@ -19,7 +19,7 @@ logger=logging.getLogger("TODO")
 class CreateEventForm(Form):
     title = TextField('title', validators = [Required(),Length(max=255)])
     image = TextField('image',validators=[Length(max=512)])
-    description = TextAreaField('description',validators=[Length(max=512)])
+    description = TextAreaField('description',validators=[Length(max=1024)])
     begin = DateTimeField('date', validators=[Required()], format='%d/%m/%Y %H:%M')
     end = DateTimeField('date', validators=[Required()], format='%d/%m/%Y %H:%M')
     location = TextAreaField('location',validators=[Length(max=120)])
