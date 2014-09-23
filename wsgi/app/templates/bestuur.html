@@ -14,9 +14,14 @@
     <blockquote>
         <p>{{bestuurslid.name}}</p> <small> {{bestuurslid.function}}</cite></small>
     </blockquote>
-    <a href="mailto:{{bestuurslid.email}}"><p> <i class="glyphicon glyphicon-envelope"></i> {{bestuurslid.email}}</a>  <br/>
+    {%if bestuurslid.email!=""%}
+    <a href="mailto:{{bestuurslid.email}}"><p> <i class="glyphicon glyphicon-envelope"></i> {{bestuurslid.email}}</a>
+    {% endif %}<br/>
+    {%if bestuurslid.facebook!=""%}
     <em class='glyphicon-facebook'></em> <a href={{bestuurslid.fblink()}} target="_blank">{{bestuurslid.facebook}}</a>
-    <br/> <i class="glyphicon glyphicon-earphone"></i> {{bestuurslid.cellphone}}<br><br><br><br><br><br>       
+    {% endif %}<br/>
+    {%if bestuurslid.cellphone!=""%}
+    <i class="glyphicon glyphicon-earphone"></i> {{bestuurslid.cellphone}}{% endif %}<br><br><br><br><br><br>       
 </div>
 {% endmacro %}
 
