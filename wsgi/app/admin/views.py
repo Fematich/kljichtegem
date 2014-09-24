@@ -21,7 +21,7 @@ logger=logging.getLogger("TODO")
 @admin.route('/')
 @admin.route('/index')
 def index():
-    return render_template('adminindex.html',events=Event.query.all(),bestuursleden=Boardmember.query.all())
+    return render_template('adminindex.html',events=Event.getnext(),bestuursleden=Boardmember.query.all())
 
 @admin.route('/event/new', methods = ['GET', 'POST'])
 def newevent():
@@ -33,7 +33,7 @@ def newevent():
         db.session.add(event)
         db.session.commit()
         flash("Event created succesfully")
-        return redirect(url_for("admin.newevent"))
+        return redirect(url_for("admin.index"))
     return render_template('newevent.html',form=form)
 
 @admin.route('/event/edit/<event_id>', methods = ['GET', 'POST'])

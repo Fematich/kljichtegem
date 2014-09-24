@@ -3,7 +3,6 @@ from flask import Flask, flash, render_template, g, redirect, url_for, Response
 from app import app
 from app import db
 from app.models import Event, Boardmember
-from forms import CreateEventForm
 #from werkzeug.utils import secure_filename
 
 @app.route('/')

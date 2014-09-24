@@ -22,8 +22,8 @@ class CreateEventForm(Form):
     description = TextAreaField('description',validators=[Length(max=1024)])
     begin = DateTimeField('date', validators=[Required()], format='%d/%m/%Y %H:%M')
     end = DateTimeField('date', validators=[Required()], format='%d/%m/%Y %H:%M')
-    location = TextAreaField('location',validators=[Length(max=120)])
-    price = IntegerField()
+    location = TextAreaField('location',default="KLJ lokaal, Kasteelwegel 1",validators=[Length(max=120)])
+    price = TextField('price',default="0", validators=[Length(max=20)])
 
 class CreateBestuurslidForm(Form):
     name = TextField('naam', validators = [Required()])

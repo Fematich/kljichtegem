@@ -45,15 +45,18 @@ class Event(db.Model):
     begin = db.Column(db.DateTime())
     end = db.Column(db.DateTime())
     location = db.Column(db.String(120))
-    price = db.Column(db.Integer)
+    price = db.Column(db.String(20))
     
     def __repr__(self):
         return '<Activiteit %r>' % (self.title)
     
     @staticmethod
-    def getnext(x=10):
+    def getnext(x=None):
         today=datetime.now()
-        return Event.query.filter(Event.begin>today).order_by(Event.begin).limit(x).all()
+        if x!=None:
+            return Event.query.filter(Event.begin>today).order_by(Event.begin).limit(x).all()
+        else:
+            return Event.query.filter(Event.begin>today).order_by(Event.begin).all()
     
     @staticmethod
     def getics():
