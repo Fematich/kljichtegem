@@ -33,6 +33,7 @@
       }
     </style>
     <link href="{{ url_for('static', filename = 'vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ url_for('static', filename = 'css/stickyfooter.css') }}" rel="stylesheet" media="screen">
     
     {% endblock %}
   </head>
@@ -93,16 +94,11 @@
 	    {% block body %}{% endblock %}
         </div><!--/span-->
       </div><!--/row-->
+    </div>
 
 
 
-    <div class="navbar navbar-default navbar-fixed-bottom">
-    	<div class="container">
-      		<p class="navbar-text pull-left">© 2014 - KLJ Ichtegem | Matthias Feys
-    	</div>
-    </div><!-- /.container -->
-
-
+    <!-- /.container -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -114,4 +110,9 @@
 
 
   </body>
+  <footer>
+      <div class="container">
+        <p class="text-muted">© 2014 - KLJ Ichtegem | <a href="https://www.facebook.com/matthias.feys">Matthias Feys</a></p>
+      </div>
+  </footer>
 </html>
