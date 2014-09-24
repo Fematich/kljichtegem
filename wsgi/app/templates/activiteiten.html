@@ -57,25 +57,53 @@
 </li>
 {% endmacro %}
 
-<div class="container">
+<div class="container" id="timelinecontainer">
     <div class="page-header text-center">
         <h1 id="timeline">Komende activiteiten</h1>
     </div>
-     <ul class="timeline">
-        {% for event in events %}
+     <ul class="timeline" id="timelinelist">
+        {% for event in events.items %}
             {%  if loop.index is divisibleby(2) %}
                 {{event_block_right(event)}}
             {% else %}
                 {{event_block_left(event)}}
             {% endif %}
-        {% endfor %}
-        
-        
+        {% endfor %} 
         <li class="clearfix" style="float: none;"></li>
     </ul>
+<center>
+    <ul class="pagination" id="pagination">
+      <li {% if not events.has_prev %} class="disabled"{% endif %}><a {% if events.has_prev %} href="{{ url_for('activiteiten', page= events.prev_num) }}"{% endif %}>&laquo;</a></li>
+      {% for page in events.iter_pages() %}
+        {% set url_paged = url_for('activiteiten', page=page) %}
+        {% set url_not_paged = url_for('activiteiten') %}
+        <li {% if page == events.page %}class="active"{% endif %}><a {% if page != events.page %} href="{% if page == 1 %}{{ url_not_paged }}{% else %}{{ url_paged }}{% endif %}"{% endif %}>{{ page }}</a></li>
+      {% endfor %}
+      <li {% if not events.has_next %}class="disabled"{% endif %}><a {% if events.has_next %} href="{{ url_for('activiteiten', page=events.next_num) }}"{% endif %}>&raquo;</a></li>
+    </ul>
+</center>
 </div>
 {% endblock %}
 {% block footscript %}
     {{ super() }}
     <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/timeline/timeline.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/infinitescroll/js/jquery.infinitescroll.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+        	
+        	$('ul.timeline').infinitescroll({
+        		navSelector  : "ul.pagination",
+        		nextSelector : "ul.pagination a:last",
+        		itemSelector : "ul.timeline li",
+                 loading: {
+                    finishedMsg: "</center><em>Alle activiteiten opgehaald</em></center>",
+                    msgText: "</center><em>Meer activiteiten ophalen ...</em></center>"
+                  },
+        		bufferPx: 600,
+                maxPage:{{events.pages}}
+        	});
+         
+        });
+    </script>
+    
 {% endblock %}

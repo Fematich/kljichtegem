@@ -15,5 +15,6 @@ SECRET_KEY = 'you-will-never-guess'
 SECURITY_POST_LOGIN_VIEW='/admin'
 
 
+EVENTS_PER_PAGE=6
 
 DEBUG = True

@@ -4,15 +4,17 @@ from app import app
 from app import db
 from app.models import Event, Boardmember
 #from werkzeug.utils import secure_filename
+from config import EVENTS_PER_PAGE
 
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html',events=Event.getnext(x=3))
 
+@app.route('/activiteiten/<int:page>')
 @app.route('/activiteiten')
-def activiteiten():
-    return render_template('activiteiten.html',events=Event.getnext())
+def activiteiten(page=1):
+    return render_template('activiteiten.html',events=Event.getnext(items=False).paginate(page, EVENTS_PER_PAGE, False))
 
 @app.route('/activiteit/<event_id>')
 def activiteit(event_id):

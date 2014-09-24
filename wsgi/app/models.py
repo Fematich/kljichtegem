@@ -51,12 +51,16 @@ class Event(db.Model):
         return '<Activiteit %r>' % (self.title)
     
     @staticmethod
-    def getnext(x=None):
+    def getnext(x=None,items=True):
         today=datetime.now()
         if x!=None:
-            return Event.query.filter(Event.begin>today).order_by(Event.begin).limit(x).all()
+            events=Event.query.filter(Event.begin>today).order_by(Event.begin).limit(x)
         else:
-            return Event.query.filter(Event.begin>today).order_by(Event.begin).all()
+            events=Event.query.filter(Event.begin>today).order_by(Event.begin)
+        if items:
+            return events.all()
+        else:
+            return events
     
     @staticmethod
     def getics():
