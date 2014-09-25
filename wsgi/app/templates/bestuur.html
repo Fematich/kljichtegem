@@ -4,30 +4,31 @@
 {% block css %}
     {{ super() }}
     <link href="{{ url_for('static', filename = 'vendor/bootstrap-glyphicons-all/glyphicons-free.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ url_for('static', filename = 'css/boardmember.css') }}" rel="stylesheet" media="screen">
 {% endblock %}
 {% macro bestuurslid_block(bestuurslid) %}
-<div class="col-sm-2 col-md-2">
-    <img src={{bestuurslid.image}}
-    alt="" class="img-rounded img-responsive" />
-</div>
-<div class="col-sm-4 col-md-4">
-    <blockquote>
-        <p>{{bestuurslid.name}}</p> <small> {{bestuurslid.function}}</cite></small>
-    </blockquote>
-    {%if bestuurslid.email!=""%}
-    <a href="mailto:{{bestuurslid.email}}"><p> <i class="glyphicon glyphicon-envelope"></i> {{bestuurslid.email}}</a>
-    {% endif %}<br/>
-    {%if bestuurslid.facebook!=""%}
-    <em class='glyphicon-facebook'></em> <a href={{bestuurslid.fblink()}} target="_blank">{{bestuurslid.facebook}}</a>
-    {% endif %}<br/>
-    {%if bestuurslid.cellphone!=""%}
-    <i class="glyphicon glyphicon-earphone"></i> {{bestuurslid.cellphone}}{% endif %}<br><br><br><br><br><br>       
+<div class="col-xs-12 col-sm-6 col-md-6">
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <img src="{{bestuurslid.image}}" alt="" class="img-rounded img-responsive" />
+            </div>
+            <div class="col-sm-6 col-md-8">
+    		<blockquote>
+        		<p>{{bestuurslid.name}}</p> <small> {{bestuurslid.function}}</cite></small>
+    		</blockquote>
+    		{%if bestuurslid.email!=""%}<a href="mailto:{{bestuurslid.email}}"><i class="glyphicon glyphicon-envelope"></i> {{bestuurslid.email}}</a>{% endif %} 
+    		{%if bestuurslid.facebook!=""%}<br/><a href={{bestuurslid.fblink()}} target="_blank"> <i class='glyphicon-facebook'></i> &nbsp;&nbsp;&nbsp;{{bestuurslid.facebook}}</a>{% endif %} 
+    		{%if bestuurslid.cellphone!=""%}<br/> <i class="glyphicon glyphicon-earphone"></i> {{bestuurslid.cellphone}}{% endif %}           
+            </div>
+        </div>
+    </div>
 </div>
 {% endmacro %}
 
 {% block body %}
 <div class="container">
-<br>
+<br><br>
 <div class="row">
        {% for bestuurslid in bestuursleden %}
             {{bestuurslid_block(bestuurslid)}}
