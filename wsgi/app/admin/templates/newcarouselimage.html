@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block footscript %}
+    {{ super() }}
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.3/moment.min.js"></script>
+{% endblock %}
+{% block body %}
+
+<!--centraliseren-->
+<div id="wrap">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-5"> 
+      <div class="container">
+        <form action='' method="POST" enctype=multipart/form-data>
+          {{form.hidden_tag()}}
+          <fieldset>
+            <h3>Carousel Image</h3>
+            <div class="form-group">
+              <label for="title">titel</label>
+              {{form.title( class="form-control")}}
+                {% for error in form.errors.title %}
+                    <span style="color: red;" class="help-inline">{{error}}</span><br>
+                {% endfor %}<br>
+            </div>
+            <div class="form-group">
+              <label for="image">afbeelding</label>
+              {{form.image( class="form-control", id="image")}}
+                {% for error in form.errors.image %}
+                    <span style="color: red;" class="help-inline">{{error}}</span><br>
+                {% endfor %}<br>
+            </div>
+            <div class="form-group">
+              <label for="text">text</label>
+              {{form.text( class="form-control", id="text")}}
+                {% for error in form.errors.text %}
+                    <span style="color: red;" class="help-inline">{{error}}</span><br>
+                {% endfor %}<br>
+            </div>
+            <button type="submit" class="btn btn btn-primary"> Save </button>
+          </div>
+       </div>
+       <div class="col-md-5"> 
+       </fieldset>
+        </form>
+       </div>
+      <div class="col-md-2"></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -32,3 +32,11 @@ class CreateBestuurslidForm(Form):
     email = TextField('email')
     facebook = TextField('facebook')
     cellphone = TextField('cellphone')
+
+class CreateCarouselimagesForm(Form):
+    image = TextField('text',validators=[Length(max=512), Required()])
+    title = TextField('text',validators=[Length(max=256)])
+    text = TextField('text',validators=[Length(max=512)])
+
+class CreatePagetextForm(Form):
+    text = TextAreaField('text',validators=[Length(max=2048)])

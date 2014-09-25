@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block script %}
       {{ super() }}
+      <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/bootstrap/js/tab.js') }}"></script>
 {% endblock %}
 
 {% block body  %}
-<hr>
+</br>
 {% macro row_event(event) %}
 <tr>
     <td>{{event.title}}</td>
@@ -14,30 +15,6 @@
 </tr>  
 {% endmacro %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <h3>Activiteiten <a href="{{url_for('admin.newevent')}}" class="btn" role="button">Voeg een nieuwe activiteit toe</a></h3>
-            <div class="table-responsive"> 
-            <table id="mytable" class="table table-bordred table-striped">
-                <thead>
-                    <th>Naam</th>
-                    <th>datum</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </thead>
-                <tbody>
-                    {% for event in events %}
-                        {{row_event(event)}}
-                    {% endfor %}
-       
-                </tbody>
-            </table>
-        </div>
-	</div>
-</div>
-
-<hr>
 {% macro row_bestuurslid(bestuurslid) %}
 <tr>
     <td>{{bestuurslid.name}}</td>
@@ -46,27 +23,135 @@
 </tr>  
 {% endmacro %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6">
-            <h3>Bestuursleden <a href="{{url_for('admin.newbestuurslid')}}" class="btn" role="button">Voeg een nieuw bestuurslid toe</a></h3>
-            <div class="table-responsive"> 
-            <table id="mytable" class="table table-bordred table-striped">
-                <thead>
-                    <th>Naam</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </thead>
-                <tbody>
-                     {% for bestuurslid in bestuursleden %}
-                        {{row_bestuurslid(bestuurslid)}}
-                    {% endfor %}
-       
-                </tbody>
-            </table>
-        </div>
-	</div>
-</div>
+{% macro row_carouselimage(cmg) %}
+<tr>
+    <td><img src="{{cmg.image}}" class="img-thumbnail" alt="Thumbnail Image"></td>
+    <form action="{{url_for('admin.editcarouselimage',image_id=cmg.id)}}"><td><p><button type="submit" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td></form>
+    <form action="{{url_for('admin.deletecarouselimage',image_id=cmg.id)}}"><td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td></form>
+</tr>  
+{% endmacro %}
 
+{% set nav_tabs = 
+        [
+            ("#activiteiten", "Activiteiten"),
+            ("#startpagina", "Startpagina"),
+            ("#fuifweekend", "Fuifweekend"),
+            ("#bestuur", "Bestuur")
+          ] -%}
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    {% for href, caption in nav_tabs %}
+        <li{% if caption.lower() == tab %} class="active"{% endif%}><a href="{{ href|e }}" role="tab" data-toggle="tab">{{ caption|e }}</a></li>
+    {% endfor %}
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane  {% if tab == "activiteiten" %} active in {% else %} fade {% endif%}" id="activiteiten">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Activiteiten <a href="{{url_for('admin.newevent')}}" class="btn" role="button">Voeg een nieuwe activiteit toe</a></h3>
+                    <div class="table-responsive"> 
+                        <table id="mytable" class="table table-bordred table-striped">
+                            <thead>
+                                <th>Naam</th>
+                                <th>datum</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </thead>
+                            <tbody>
+                                {% for event in events %}
+                                    {{row_event(event)}}
+                                {% endfor %}
+                   
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane {% if tab == "bestuur" %} active in {% else %} fade {% endif%}" id="bestuur">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Bestuursleden <a href="{{url_for('admin.newbestuurslid')}}" class="btn" role="button">Voeg een nieuw bestuurslid toe</a></h3>
+                    <div class="table-responsive"> 
+                        <table id="mytable" class="table table-bordred table-striped">
+                            <thead>
+                                <th>Naam</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </thead>
+                            <tbody>
+                                 {% for bestuurslid in bestuursleden %}
+                                    {{row_bestuurslid(bestuurslid)}}
+                                {% endfor %}
+                   
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane {% if tab == "startpagina" %} active in {% else %} fade {% endif%}" id="startpagina">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Introtekst <a href="{{url_for('admin.editintrotekst')}}" class="btn" role="button">Edit</a></h3>
+                    <p>{{pagetext.get(1).text}}</p>
+                </div>   
+                <div class="col-md-6">
+                    <h3>Carousel afbeeldingen <a href="{{url_for('admin.newhomepagecarouselimage')}}" class="btn" role="button">Nieuwe afbeelding</a></h3>
+                    <div class="table-responsive"> 
+                        <table id="mytable" class="table table-bordred table-striped">
+                            <thead>
+                                <th>Foto</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </thead>
+                            <tbody>
+                                 {% for cmg in carouselimages.filter_by(carousel="homepage").all() %}
+                                    {{row_carouselimage(cmg)}}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="tab-pane {% if tab == "fuifweekend" %} active in {% else %} fade {% endif%}" id="fuifweekend">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Tekst <a href="{{url_for('admin.editfuiftekst')}}" class="btn" role="button">Edit</a></h3>
+                    <p>{{pagetext.get(2).text}}</p>
+                </div>
+                <div class="col-md-5">
+                    <h3>Carousel afbeeldingen <a href="{{url_for('admin.newfuifcarouselimage')}}" class="btn" role="button">Nieuwe afbeelding</a></h3>
+                    <div class="table-responsive"> 
+                        <table id="mytable" class="table table-bordred table-striped">
+                            <thead>
+                                <th>Foto</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </thead>
+                            <tbody>
+                                 {% for cmg in carouselimages.filter_by(carousel="fuif").all() %}
+                                    {{row_carouselimage(cmg)}}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
 <hr>
 {% endblock %}

@@ -90,3 +90,14 @@ class Boardmember(db.Model):
         return "https://www.facebook.com/"+self.facebook
     def __repr__(self):
         return '<bestuurslid %r>' % (self.name)
+
+class Carouselimage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    carousel = db.Column(db.String(512))
+    image = db.Column(db.String(512))
+    title = db.Column(db.String(256))
+    text = db.Column(db.String(512))
+
+class Pagetext(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(2048))
