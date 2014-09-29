@@ -4,7 +4,7 @@
 @date:      %(date)
 """
 import logging
-from flask import flash, redirect, render_template, g, url_for, request
+from flask import flash, redirect, render_template, g, url_for, request, jsonify
 from app import db
 from app.models import Event, Boardmember, Carouselimage, Pagetext
 
@@ -17,14 +17,19 @@ from forms import CreateEventForm, CreateBestuurslidForm, CreateCarouselimagesFo
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 logger=logging.getLogger("TODO")
 
-@admin.route('/index#<tab>')
-@admin.route('/<tab>')
+@admin.route('/index/<tab>')
+#@admin.route('/<tab>')
 @admin.route('/index')
 def index(tab="activiteiten"):
+    print tab
+    ptxt1=Pagetext.query.get_or_404(1)
+    ptxt2=Pagetext.query.get_or_404(2)
     return render_template('adminindex.html',events=Event.getnext(),
         bestuursleden=Boardmember.query.all(),
         carouselimages=Carouselimage.query,
         pagetext=Pagetext.query,
+        introtekst_form=CreatePagetextForm(obj=ptxt1),
+        fuiftekst_form = CreatePagetextForm(obj=ptxt2),
         tab=tab)
 
 @admin.route('/event/new', methods = ['GET', 'POST'])
@@ -70,7 +75,7 @@ def newbestuurslid():
         db.session.add(bestuurslid)
         db.session.commit()
         flash("Bestuurslid created succesfully")
-        return redirect(url_for("admin.index"))
+        return redirect(url_for("admin.index",tab="bestuur"))
     return render_template('newbestuurslid.html',form=form)
 
 @admin.route('/bestuurslid/edit/<bestuurslid_id>', methods = ['GET', 'POST'])
@@ -82,7 +87,7 @@ def editbestuurslid(bestuurslid_id=None):
         db.session.add(bestuurslid)
         db.session.commit()
         flash("Bestuurlid edited succesfully")
-        return redirect(url_for("admin.index"))
+        return redirect(url_for("admin.index",tab="bestuur"))
     return render_template('newbestuurslid.html',form=form)
     
 @admin.route('/bestuurslid/delete/<bestuurslid_id>', methods = ['GET','POST'])
@@ -91,7 +96,7 @@ def deletebestuurslid(bestuurslid_id=None):
     db.session.delete(bestuurslid)
     db.session.commit()
     flash("Bestuurslid deleted")
-    return redirect(url_for('admin.index'))
+    return redirect(url_for('admin.index',tab="bestuur"))
 
 @admin.route('/homepagecarousel/new', methods = ['GET', 'POST'])
 def newhomepagecarouselimage():
@@ -104,7 +109,7 @@ def newhomepagecarouselimage():
         db.session.add(cmg)
         db.session.commit()
         flash("Image created succesfully")
-        return redirect(url_for("admin.index"))
+        return redirect(url_for("admin.index",tab="startpagina"))
     return render_template('newcarouselimage.html',form=form)
 
 @admin.route('/fuifcarousel/new', methods = ['GET', 'POST'])
@@ -118,7 +123,7 @@ def newfuifcarouselimage():
         db.session.add(cmg)
         db.session.commit()
         flash("Image created succesfully")
-        return redirect(url_for("admin.index"))
+        return redirect(url_for("admin.index",tab="fuifweekend"))
     return render_template('newcarouselimage.html',form=form)
 
 @admin.route('/carousel/edit/<image_id>', methods = ['GET', 'POST'])
@@ -151,8 +156,8 @@ def editintrotekst():
         db.session.add(ptxt)
         db.session.commit()
         flash("Introtext edited succesfully")
-        return redirect(url_for("admin.index"))
-    return render_template('newtext.html',form=form)
+        return redirect(url_for("admin.index",tab="startpagina"))
+    return redirect(url_for("admin.index",tab="startpagina"))
 
 @admin.route('/fuiftekst/edit', methods = ['GET', 'POST'])
 def editfuiftekst():
@@ -163,5 +168,5 @@ def editfuiftekst():
         db.session.add(ptxt)
         db.session.commit()
         flash("Fuiftekst edited succesfully")
-        return redirect(url_for("admin.index"))
+        return redirect(url_for("admin.index",tab="fuifweekend"))
     return render_template('newtext.html',form=form)

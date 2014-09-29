@@ -2,6 +2,15 @@
 {% block script %}
       {{ super() }}
       <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/bootstrap/js/tab.js') }}"></script>
+      <script type="text/javascript">
+        var formErrors = {% if form_errors %}true{% else %}false{% endif %};
+
+        $(document).ready(function() {
+            if (formErrors) {
+                $('#introtekstModal').modal('show');
+            }
+        });
+        </script>
 {% endblock %}
 
 {% block body  %}
@@ -100,7 +109,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Introtekst <a href="{{url_for('admin.editintrotekst')}}" class="btn" role="button">Edit</a></h3>
+                    <h3>Introtekst <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#introtekstModal"> Edit </button> </h3>
                     <p>{{pagetext.get(1).text}}</p>
                 </div>   
                 <div class="col-md-6">
@@ -128,7 +137,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <h3>Tekst <a href="{{url_for('admin.editfuiftekst')}}" class="btn" role="button">Edit</a></h3>
+                    <h3>Tekst <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#fuifweekendTekstModal"> Edit </button></h3>
                     <p>{{pagetext.get(2).text}}</p>
                 </div>
                 <div class="col-md-5">
@@ -154,4 +163,68 @@
     </div>
 </div>
 <hr>
+<!-- Introtekst modal -->
+<div class="modal fade" id="introtekstModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Introtekst</h4>
+      </div>
+      <form action="/admin/introtekst/edit" method="POST" enctype=multipart/form-data>
+        {{introtekst_form.hidden_tag()}}
+        <div class="modal-body">
+            <div class="container">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-md-5"> 
+                            {{introtekst_form.text( class="form-control", id="text")}}
+                            {% for error in introtekst_form.errors.text %}
+                                <span style="color: red;" class="help-inline">{{error}}</span><br>
+                            {% endfor %}<br>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn btn-primary"> Save </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Introtekst modal -->
+<div class="modal fade" id="fuifweekendTekstModal" tabindex="-1" role="dialog" aria-labelledby="fuifweekendModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tekst</h4>
+      </div>
+      <form action="{{url_for("admin.editfuiftekst")}}" method="POST" enctype=multipart/form-data>
+        {{fuiftekst_form.hidden_tag()}}
+        <div class="modal-body">
+            <div class="container">
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-md-5"> 
+                            {{fuiftekst_form.text( class="form-control", id="text")}}
+                            {% for error in fuiftekst_form.errors.text %}
+                                <span style="color: red;" class="help-inline">{{error}}</span><br>
+                            {% endfor %}<br>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn btn-primary"> Save </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}
