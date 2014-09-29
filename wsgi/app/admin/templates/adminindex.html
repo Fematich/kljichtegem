@@ -177,12 +177,16 @@
             <div class="container">
                 <fieldset>
                     <div class="form-group">
-                        <div class="col-md-5"> 
-                            {{introtekst_form.text( class="form-control", id="text")}}
-                            {% for error in introtekst_form.errors.text %}
-                                <span style="color: red;" class="help-inline">{{error}}</span><br>
-                            {% endfor %}<br>
-                        </div>
+                        <table>
+                            <tbody>
+                                <tr><td>
+                                    {{introtekst_form.text( class="form-control", id="text", maxlength="2048", rows="10", cols="80")}}
+                                    {% for error in introtekst_form.errors.text %}
+                                        <span style="color: red;" class="help-inline">{{error}}</span><br>
+                                    {% endfor %}<br>
+                                </td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </fieldset>
             </div>
@@ -209,12 +213,16 @@
             <div class="container">
                 <fieldset>
                     <div class="form-group">
-                        <div class="col-md-5"> 
-                            {{fuiftekst_form.text( class="form-control", id="text")}}
-                            {% for error in fuiftekst_form.errors.text %}
-                                <span style="color: red;" class="help-inline">{{error}}</span><br>
-                            {% endfor %}<br>
-                        </div>
+                        <table>
+                            <tbody>
+                                <tr><td>
+                                    {{fuiftekst_form.text( class="form-control", id="text", maxlength="2048", rows="10", cols="80")}}
+                                    {% for error in fuiftekst_form.errors.text %}
+                                        <span style="color: red;" class="help-inline">{{error}}</span><br>
+                                    {% endfor %}<br>
+                                </td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </fieldset>
             </div>
