@@ -1,5 +1,6 @@
 from jinja2 import Markup
-from datetime import datetime
+from datetime import datetime, timedelta
+from models import Event
 
 class momentjs(object):
     def __init__(self, timestamp):
@@ -20,4 +21,13 @@ class momentjs(object):
     def DaysUntil(self):
         delta=self.timestamp-datetime.today()
         return max(delta.days,0)
+
+    @staticmethod
+    def NextBeginPotentialDate():
+        return Event.getNextDate().strftime("%d/%m/%Y 20:00")
+
+    @staticmethod
+    def NextEndPotentialDate():
+        return (Event.getNextDate()+timedelta(1)).strftime("%d/%m/%Y 00:00")
+
 

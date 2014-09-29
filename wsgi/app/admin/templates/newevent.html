@@ -10,17 +10,19 @@
     <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/datetimepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/datetimepicker/js/nl.js') }}"></script>
     <script type="text/javascript">
-          $(document).ready(function () {
+            $(document).ready(function () {
                 $('#begin').datetimepicker({
+                    defaultDate: "{{momentjs.NextBeginPotentialDate()}}",
                     language: 'nl'
                 });
-            });
-                
-     </script>
-     <script type="text/javascript">
-            $(document).ready(function () {
                 $('#end').datetimepicker({
+                    defaultDate: "{{momentjs.NextEndPotentialDate()}}",
                     language: 'nl'
+                });
+                $("#begin").on("dp.change",function (e) {
+                  var dt = new Date($('#begin').data("DateTimePicker").getDate());
+                  dt.setHours(dt.getHours() + 4 );
+                  $('#end').data("DateTimePicker").setDate(dt);
                 });
             });
      </script>

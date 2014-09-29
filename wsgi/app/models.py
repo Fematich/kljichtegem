@@ -7,7 +7,7 @@ import logging
 
 from icalendar import Calendar, vText, Event as iEvent
 import pytz
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from app import app, db
 from flask.ext.security import UserMixin, RoleMixin
@@ -54,9 +54,9 @@ class Event(db.Model):
     def getnext(x=None,items=True):
         today=datetime.now()
         if x!=None:
-            events=Event.query.filter(Event.begin>today).order_by(Event.begin).limit(x)
+            events=Event.query.filter(Event.end>today).order_by(Event.begin).limit(x)
         else:
-            events=Event.query.filter(Event.begin>today).order_by(Event.begin)
+            events=Event.query.filter(Event.end>today).order_by(Event.begin)
         if items:
             return events.all()
         else:
@@ -76,6 +76,12 @@ class Event(db.Model):
             cal.add_component(ev)
         c=cal.to_ical()
         return str(c)
+
+    @staticmethod
+    def getNextDate():
+        lastDate = Event.query.order_by(Event.begin.desc()).limit(1).first().begin
+        print lastDate
+        return lastDate + timedelta( (4-lastDate.isoweekday()) % 7 +8)
         
 class Boardmember(db.Model):
     id = db.Column(db.Integer, primary_key=True)
