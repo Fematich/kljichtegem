@@ -136,16 +136,23 @@ def editcarouselimage(image_id=None):
         db.session.add(cmg)
         db.session.commit()
         flash("Image edited succesfully")
-        return redirect(url_for("admin.index"))
+        if cmg.carousel=="homepage":
+            return redirect(url_for("admin.index",tab="startpagina"))
+        else:
+            return redirect(url_for("admin.index",tab="fuifweekend"))
     return render_template('newcarouselimage.html',form=form)
 
 @admin.route('/carousel/delete/<image_id>', methods = ['GET','POST'])
 def deletecarouselimage(image_id=None):
     cmg=Carouselimage.query.get(image_id)
+    cmg_carousel=cmg.carousel
     db.session.delete(cmg)
     db.session.commit()
     flash("Image deleted")
-    return redirect(url_for('admin.index'))
+    if cmg_carousel=="homepage":
+        return redirect(url_for("admin.index",tab="startpagina"))
+    else:
+        return redirect(url_for("admin.index",tab="fuifweekend"))
 
 @admin.route('/introtekst/edit', methods = ['GET', 'POST'])
 def editintrotekst():
