@@ -31,7 +31,7 @@ def feestweekend():
 
 @app.route('/lidworden')
 def lidworden():
-    return render_template('lidworden.html',events=Event.getnext(x=3))
+    return render_template('lidworden.html',events=Event.getnext(x=3),text=Pagetext.query.get(3).text)
     
 @app.route('/calendar.ics')
 def calendar():

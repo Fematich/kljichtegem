@@ -1,7 +1,15 @@
 {% extends "base.html" %}
-{% block script %}
-      {{ super() }}
-      <script type="text/javascript" src="{{ url_for('static', filename = 'vendor/bootstrap/js/tab.js') }}"></script>
+{% block css %}
+    {{ super() }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename = 'vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename = 'vendor/summernote/summernote.css') }}" rel="stylesheet" media="screen">
+    <script src="{{ url_for('static', filename = 'vendor/summernote/summernote.min.js') }}"></script>
+{% endblock %}
+{% block footscript %}
+
+     
       <script type="text/javascript">
         var formErrors = {% if form_errors %}true{% else %}false{% endif %};
 
@@ -10,6 +18,20 @@
                 $('#introtekstModal').modal('show');
             }
         });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#summernote').summernote({
+                  toolbar: [     
+                    ['style', ['style','bold', 'italic']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['insert', ['link']]
+                  ],
+                  onChange: function(contents, $editable) {
+                    $('#lidwordentext').val(contents);;
+                  }
+                });
+            });
         </script>
 {% endblock %}
 
@@ -45,12 +67,13 @@
             ("#activiteiten", "Activiteiten"),
             ("#startpagina", "Startpagina"),
             ("#fuifweekend", "Fuifweekend"),
-            ("#bestuur", "Bestuur")
+            ("#bestuur", "Bestuur"),
+            ("#lidworden", "Lid worden")
           ] -%}
 <!-- Nav tabs -->
 <ul class="nav nav-tabs" role="tablist">
     {% for href, caption in nav_tabs %}
-        <li{% if caption.lower() == tab %} class="active"{% endif%}><a href="{{ href|e }}" role="tab" data-toggle="tab">{{ caption|e }}</a></li>
+        <li{% if caption.lower().replace(" ","") == tab %} class="active"{% endif%}><a href="{{ href|e }}" role="tab" data-toggle="tab">{{ caption|e }}</a></li>
     {% endfor %}
 </ul>
 
@@ -111,6 +134,7 @@
                 <div class="col-md-6">
                     <h3>Introtekst <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#introtekstModal"> Edit </button> </h3>
                     <p>{{pagetext.get(1).text}}</p>
+
                 </div>   
                 <div class="col-md-6">
                     <h3>Carousel afbeeldingen <a href="{{url_for('admin.newhomepagecarouselimage')}}" class="btn" role="button">Nieuwe afbeelding</a></h3>
@@ -161,6 +185,16 @@
             </div>
         </div>
     </div>
+    <div class="tab-pane {% if tab == "lidworden" %} active in {% else %} fade {% endif%}" id="lidworden">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3><button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#lidwordenTekstModal"> Edit tekst</button></h3>
+                    <p>{{pagetext.get(3).text | safe}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <hr>
 <!-- Introtekst modal -->
@@ -199,7 +233,7 @@
     </div>
   </div>
 </div>
-<!-- Introtekst modal -->
+<!-- fuifweekendtekst modal -->
 <div class="modal fade" id="fuifweekendTekstModal" tabindex="-1" role="dialog" aria-labelledby="fuifweekendModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -218,6 +252,44 @@
                                 <tr><td>
                                     {{fuiftekst_form.text( class="form-control", id="text", maxlength="2048", rows="10", cols="80")}}
                                     {% for error in fuiftekst_form.errors.text %}
+                                        <span style="color: red;" class="help-inline">{{error}}</span><br>
+                                    {% endfor %}<br>
+                                </td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn btn-primary"> Save </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- lid worden modal -->
+<div class="modal fade" id="lidwordenTekstModal" tabindex="-1" role="dialog" aria-labelledby="lidwordenModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Tekst</h4>
+      </div>
+      <form action="{{url_for("admin.editlidwordentekst")}}" method="POST" enctype=multipart/form-data>
+        {{lidworden_form.hidden_tag()}}
+        <div class="modal-body">
+            <div class="container">
+                <fieldset>
+                    
+                    <div class="form-group">
+                        <table>
+                            <tbody>
+                                <tr><td>
+                                    <div id="summernote">{{pagetext.get(3).text | safe}}</div>
+                                    {{lidworden_form.text( class="form-control", id="lidwordentext", maxlength="2048", rows="10", cols="80", style="display: none")}}
+                                    {% for error in lidworden_form.errors.text %}
                                         <span style="color: red;" class="help-inline">{{error}}</span><br>
                                     {% endfor %}<br>
                                 </td></tr>

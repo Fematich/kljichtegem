@@ -39,4 +39,4 @@ class CreateCarouselimagesForm(Form):
     text = TextField('text',validators=[Length(max=512)])
 
 class CreatePagetextForm(Form):
-    text = TextAreaField('text',validators=[Length(max=2048)])
+    text = TextAreaField('text',validators=[Length(max=8192)])

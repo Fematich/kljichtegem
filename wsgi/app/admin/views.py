@@ -21,15 +21,16 @@ logger=logging.getLogger("TODO")
 #@admin.route('/<tab>')
 @admin.route('/index')
 def index(tab="activiteiten"):
-    print tab
     ptxt1=Pagetext.query.get_or_404(1)
     ptxt2=Pagetext.query.get_or_404(2)
+    ptxt3=Pagetext.query.get_or_404(3)
     return render_template('adminindex.html',events=Event.getnext(),
         bestuursleden=Boardmember.query.all(),
         carouselimages=Carouselimage.query,
         pagetext=Pagetext.query,
         introtekst_form=CreatePagetextForm(obj=ptxt1),
         fuiftekst_form = CreatePagetextForm(obj=ptxt2),
+        lidworden_form = CreatePagetextForm(obj=ptxt3),
         tab=tab)
 
 @admin.route('/event/new', methods = ['GET', 'POST'])
@@ -176,4 +177,16 @@ def editfuiftekst():
         db.session.commit()
         flash("Fuiftekst edited succesfully")
         return redirect(url_for("admin.index",tab="fuifweekend"))
+    return render_template('newtext.html',form=form)
+
+@admin.route('/lidworden/edit', methods = ['GET', 'POST'])
+def editlidwordentekst():
+    ptxt=Pagetext.query.get_or_404(3)
+    form = CreatePagetextForm(obj=ptxt)
+    if form.validate_on_submit():
+        form.populate_obj(ptxt)
+        db.session.add(ptxt)
+        db.session.commit()
+        flash("Lid worden tekst edited succesfully")
+        return redirect(url_for("admin.index",tab="lidworden"))
     return render_template('newtext.html',form=form)
