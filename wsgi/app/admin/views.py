@@ -59,6 +59,28 @@ def editevent(event_id=None):
         return redirect(url_for("admin.index"))
     return render_template('newevent.html',form=form)
 
+@admin.route('/event/copy/<event_id>', methods = ['GET', 'POST'])
+def copyevent(event_id=None):
+    new_event=Event()
+    event=Event.query.get_or_404(event_id)
+    new_event.title=event.title
+    new_event.image=event.image
+    new_event.description=event.description
+    new_event.begin=event.begin
+    new_event.end=event.end
+    new_event.location=event.location
+    new_event.price=event.price
+    form = CreateEventForm(obj=new_event)
+    if form.validate_on_submit():
+        form.populate_obj(new_event)
+        new_event.image=new_event.image.replace("https://www.dropbox.com","https://dl.dropboxusercontent.com/")
+        db.session.add(new_event)
+        db.session.commit()
+        flash("Event edited succesfully")
+        return redirect(url_for("admin.index"))
+    return render_template('newevent.html',form=form)
+
+
 @admin.route('/event/delete/<event_id>', methods = ['GET','POST'])
 def deleteevent(event_id=None):
     event=Event.query.get(event_id)

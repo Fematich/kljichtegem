@@ -42,6 +42,7 @@
     <td>{{event.title}}</td>
     <td>{{event.begin.strftime('%d/%m/%y')}}</td>
     <form action="{{url_for('admin.editevent',event_id=event.id)}}"><td><p><button type="submit" class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-pencil"></span></button></p></td></form>
+    <form action="{{url_for('admin.copyevent',event_id=event.id)}}"><td><p><button type="submit" class="btn btn-primary btn-xs" data-title="Copy" data-toggle="modal" data-target="#copy" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-plus-sign"></span></button></p></td></form>
     <form action="{{url_for('admin.deleteevent',event_id=event.id)}}"><td><p><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" data-placement="top" rel="tooltip"><span class="glyphicon glyphicon-trash"></span></button></p></td></form>
 </tr>  
 {% endmacro %}
@@ -90,6 +91,7 @@
                                 <th>Naam</th>
                                 <th>datum</th>
                                 <th>Edit</th>
+                                <th>Copy</th>
                                 <th>Delete</th>
                             </thead>
                             <tbody>
