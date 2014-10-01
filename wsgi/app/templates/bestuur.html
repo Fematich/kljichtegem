@@ -6,6 +6,20 @@
     <link href="{{ url_for('static', filename = 'vendor/bootstrap-glyphicons-all/glyphicons-free.css') }}" rel="stylesheet" media="screen">
     <link href="{{ url_for('static', filename = 'css/boardmember.css') }}" rel="stylesheet" media="screen">
 {% endblock %}
+{% block footscript %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename = 'vendor/scramble/scramble.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            {% for bestuurslid in bestuursleden %}
+                {%if bestuurslid.email!=""%}
+                emailScramble{{bestuurslid.id}} = new scrambledString(document.getElementById('email{{bestuurslid.id}}'), 'emailScramble{{bestuurslid.id}}', '{{bestuurslid.getscrambledmail()}}', {{bestuurslid.getscrambledorder()}});
+                {% endif %}
+            {% endfor %}
+        });
+    </script>
+{% endblock %}
+
 {% macro bestuurslid_block(bestuurslid) %}
 <div class="col-xs-12 col-sm-6 col-md-6">
     <div class="well well-sm">
@@ -17,9 +31,10 @@
     		<blockquote>
         		<p>{{bestuurslid.name}}</p> <small> {{bestuurslid.function}}</cite></small>
     		</blockquote>
-    		{%if bestuurslid.email!=""%}<a href="mailto:{{bestuurslid.email}}" style="word-wrap: break-word"><i class="glyphicon glyphicon-envelope"></i> {{bestuurslid.email}}</a>{% endif %} 
+    		{%if bestuurslid.email!=""%}<i class="glyphicon glyphicon-envelope"></i><span id="email{{bestuurslid.id}}" style="color:#57068C;"></span>{% endif %} 
     		{%if bestuurslid.facebook!=""%}<br/><a href={{bestuurslid.fblink()}} target="_blank"> <i class='glyphicon-facebook'></i> &nbsp;&nbsp;&nbsp;{{bestuurslid.facebook}}</a>{% endif %} 
-    		{%if bestuurslid.cellphone!=""%}<br/> <i class="glyphicon glyphicon-earphone"></i> {{bestuurslid.cellphone}}{% endif %}           
+    		{%if bestuurslid.cellphone!=""%}<br/> <i class="glyphicon glyphicon-earphone"></i> {{bestuurslid.cellphone}}{% endif %}  
+            
             </div>
         </div>
     </div>

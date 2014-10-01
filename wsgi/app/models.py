@@ -3,7 +3,7 @@
 @author:    Matthias Feys (matthiasfeys@gmail.com)
 @date:      %(date)
 """
-import logging
+import logging, random
 
 from icalendar import Calendar, vText, Event as iEvent
 import pytz
@@ -91,9 +91,23 @@ class Boardmember(db.Model):
     email = db.Column(db.String(120))
     facebook = db.Column(db.String(120))
     cellphone = db.Column(db.String(15))
-    
+
     def fblink(self):
         return "https://www.facebook.com/"+self.facebook
+
+    def getscrambledmail(self):
+        if self.email=="":
+            return ""
+        else:
+            return "".join([self.email[i] for i in range(len(self.email)-1,-1,-1)])
+
+    def getscrambledorder(self):
+        if self.email=="":
+            return ""
+        else:
+            order=range(len(self.email)-1,-1,-1)
+            return str(order)
+
     def __repr__(self):
         return '<bestuurslid %r>' % (self.name)
 
