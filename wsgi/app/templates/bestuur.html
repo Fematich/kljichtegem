@@ -32,10 +32,9 @@
     		<blockquote>
         		<p>{{bestuurslid.name}}</p> <small> {{bestuurslid.function}}</cite></small>
     		</blockquote>
-    		{%if bestuurslid.email!=""%}<i class="glyphicon glyphicon-envelope"></i><span id="email{{bestuurslid.id}}" style="color:#57068C;"></span>{% endif %} 
+    		{%if bestuurslid.email!=""%}<i class="glyphicon glyphicon-envelope"></i><span id="email{{bestuurslid.id}}" ></span>{% endif %} 
     		{%if bestuurslid.facebook!=""%}<br/><a href={{bestuurslid.fblink()}} target="_blank"> <i class='glyphicon-facebook'></i> &nbsp;&nbsp;&nbsp;{{bestuurslid.facebook}}</a>{% endif %} 
     		{%if bestuurslid.cellphone!=""%}<br/> <i class="glyphicon glyphicon-earphone"></i> {{bestuurslid.cellphone}}{% endif %}  
-            
             </div>
         </div>
     </div>
