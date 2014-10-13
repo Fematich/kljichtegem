@@ -2,10 +2,12 @@
 {% extends "base.html" %}
 {% set active_page = "Activiteiten" %}
 {% block head %}
-  <meta property="og:title" content="{{event.title}}" />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="http://kljichtegem.be{{url_for('activiteit',event_id=event.id)}}" />
-  <meta property="og:image" content="{{event.image}}" />
+    <meta property="og:site_name" content="KLJ Ichtegem"/>
+    <meta property="og:title" content="{{event.title}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://kljichtegem.be{{url_for('activiteit',event_id=event.id)}}" />
+    <meta property="og:image" content="{{event.image}}" />
+    <meta property="og:description" content="{{event.description}}" />
 {% endblock%}
 {% block body %}
 
