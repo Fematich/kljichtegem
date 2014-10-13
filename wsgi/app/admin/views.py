@@ -17,8 +17,8 @@ from forms import CreateEventForm, CreateBestuurslidForm, CreateCarouselimagesFo
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 logger=logging.getLogger("TODO")
 
+@admin.route('/')
 @admin.route('/index/<tab>')
-#@admin.route('/<tab>')
 @admin.route('/index')
 def index(tab="activiteiten"):
     ptxt1=Pagetext.query.get_or_404(1)
