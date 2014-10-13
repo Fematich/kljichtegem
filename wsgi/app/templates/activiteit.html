@@ -92,7 +92,7 @@
             <a href={{url_for('activiteiten')}} ><h3>Volgende activiteiten:</h3></a> 
             <ul style="list-style: none;">
             {% for event in events %}
-                <li> <a href={{url_for('activiteiten')}}#activiteit{{event.id}} rel="tooltip" title="over {{momentjs(event.begin).DaysUntil()}} dagen" >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar" rel="tooltip" title="over {{momentjs(event.begin).DaysUntil()}} dagen"> {{event.begin.strftime('%d/%m/%y %H:%M')}}</i></li>
+                <li> <a href={{url_for('activiteit',event_id=event.id)}} rel="tooltip" title="over {{momentjs(event.begin).DaysUntil()}} dagen" >{{event.title}}</a> <br><i class="glyphicon glyphicon-calendar" rel="tooltip" title="over {{momentjs(event.begin).DaysUntil()}} dagen"> {{event.begin.strftime('%d/%m/%y %H:%M')}}</i></li>
             {% endfor %}
             </ul>         
          </div>
