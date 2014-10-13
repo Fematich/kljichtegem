@@ -9,7 +9,7 @@ function scrambledString(tag, objName, initScrambledString, initScrambledStringI
 	this.bubbleSortBookmark = 0;
 
 	this.rescramble();
-	this.tag.innerHTML = ' <a href="mailto:'+this.string+'" style="word-wrap: break-word" onfocus="' + this.objName + '.initAnimatedBubbleSort();return false;">'+this.string+' </a>';
+	this.tag.innerHTML = '<a href="#" style="word-wrap: break-word">'+this.string+' </a>';
 }
 
 function rescramble() {
@@ -46,7 +46,7 @@ function bubbleSortStep() {
 				this.string.substring(i, i + 1) +
 				this.string.substring(i + 2);
 			this.string = tempArrange;
-			this.tag.innerHTML = this.string;
+			this.tag.innerHTML = '<a href="mailto:'+ this.string +'" style="word-wrap: break-word">'+this.string+' </a>';
 			this.bubbleSortBookmark = i;
 			break;
 		}
