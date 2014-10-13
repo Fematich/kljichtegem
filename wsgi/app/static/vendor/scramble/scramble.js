@@ -9,7 +9,7 @@ function scrambledString(tag, objName, initScrambledString, initScrambledStringI
 	this.bubbleSortBookmark = 0;
 
 	this.rescramble();
-	this.tag.innerHTML = ' <a href="mailto:'+this.string+'" style="word-wrap: break-word" onfocus="' + this.objName + '.initAnimatedBubbleSort();return false;">'+this.string+' </a>';
+	this.tag.innerHTML = ' <a href="mailto:'+this.string+'" style="word-wrap: break-word">'+this.string+' </a>';
 }
 
 function rescramble() {

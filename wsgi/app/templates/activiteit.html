@@ -1,6 +1,12 @@
 <!-- extend base layout -->
 {% extends "base.html" %}
 {% set active_page = "Activiteiten" %}
+{% block head %}
+  <meta property="og:title" content="{{event.title}}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="http://kljichtegem.be{{url_for('activiteit',event_id=event.id)}}" />
+  <meta property="og:image" content="{{event.image}}" />
+{% endblock%}
 {% block body %}
 
 

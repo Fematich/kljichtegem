@@ -1,0 +1,55 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+{% set active_page = "Nacht van 't Wodkapje" %}
+{% block css %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename = 'vendor/bootstrap-glyphicons-all/glyphicons-free.css') }}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2397.382589922312!2d3.6953015409312533!3d51.04790172234229!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c3717763e1e3ad%3A0x95fe043b36b66994!2sZuiderlaan+1%2C+9000+Gent!5e1!3m2!1sen!2sbe!4v1408753021189"></iframe>
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    {% for image in images %}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{loop.index}}" {%  if loop.index==1 %} class="active" {% endif %}></li>
+                    {% endfor %}
+                </ol>
+                <div class="carousel-inner">
+                    {% for image in images %}
+                        <div class="item {%  if loop.index==1 %} active {% endif %}">
+                            <img src="{{image.image}}" alt="First slide">
+                            <div class="carousel-caption">
+                                    <h3>{{image.title}}</h3>
+                                    <p>{{image.text}}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control"
+                        href="#carousel-example-generic" data-slide="next"><span class="glyphicon glyphicon-chevron-right">
+                        </span></a>
+            </div>
+            <div class="main-text hidden-xs">
+                <div class="col-md-12 text-center">
+                    <h1>
+                        Nacht van't Wodkapje</h1>
+                   
+                        {{ text }}
+                    
+    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="push">
+</div>
+
+
+ 
+
+{% endblock %}

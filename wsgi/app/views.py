@@ -32,7 +32,11 @@ def feestweekend():
 @app.route('/lidworden')
 def lidworden():
     return render_template('lidworden.html',events=Event.getnext(x=3),text=Pagetext.query.get(3).text)
-    
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html',text=Pagetext.query.get(2).text, images=Carouselimage.query.filter_by(carousel="fuif").all())
+
 @app.route('/calendar.ics')
 def calendar():
     evs=Event.getics()

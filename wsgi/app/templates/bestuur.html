@@ -13,7 +13,8 @@
         $(document).ready(function() {
             {% for bestuurslid in bestuursleden %}
                 {%if bestuurslid.email!=""%}
-                emailScramble{{bestuurslid.id}} = new scrambledString(document.getElementById('email{{bestuurslid.id}}'), 'emailScramble{{bestuurslid.id}}', '{{bestuurslid.getscrambledmail()}}', {{bestuurslid.getscrambledorder()}});
+                    emailScramble{{bestuurslid.id}} = new scrambledString(document.getElementById('email{{bestuurslid.id}}'), 'emailScramble{{bestuurslid.id}}', '{{bestuurslid.getscrambledmail()}}', {{bestuurslid.getscrambledorder()}});
+                    emailScramble{{bestuurslid.id}}.initAnimatedBubbleSort()
                 {% endif %}
             {% endfor %}
         });
