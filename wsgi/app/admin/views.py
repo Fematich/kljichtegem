@@ -212,3 +212,15 @@ def editlidwordentekst():
         flash("Lid worden tekst edited succesfully")
         return redirect(url_for("admin.index",tab="lidworden"))
     return render_template('newtext.html',form=form)
+
+@admin.route('/quiz/edit', methods = ['GET', 'POST'])
+def editquiztekst():
+    ptxt=Pagetext.query.get_or_404(4)
+    form = CreatePagetextForm(obj=ptxt)
+    if form.validate_on_submit():
+        form.populate_obj(ptxt)
+        db.session.add(ptxt)
+        db.session.commit()
+        flash("Quiz tekst edited succesfully")
+        return redirect(url_for("admin.index",tab="lidworden"))
+    return render_template('newtext.html',form=form)
