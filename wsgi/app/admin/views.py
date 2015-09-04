@@ -24,6 +24,7 @@ def index(tab="activiteiten"):
     ptxt1=Pagetext.query.get_or_404(1)
     ptxt2=Pagetext.query.get_or_404(2)
     ptxt3=Pagetext.query.get_or_404(3)
+    ptxt4=Pagetext.query.get_or_404(4)
     return render_template('adminindex.html',events=Event.getnext(),
         bestuursleden=Boardmember.query.all(),
         carouselimages=Carouselimage.query,
@@ -31,6 +32,7 @@ def index(tab="activiteiten"):
         introtekst_form=CreatePagetextForm(obj=ptxt1),
         fuiftekst_form = CreatePagetextForm(obj=ptxt2),
         lidworden_form = CreatePagetextForm(obj=ptxt3),
+        quiz_form = CreatePagetextForm(obj=ptxt4),
         tab=tab)
 
 @admin.route('/event/new', methods = ['GET', 'POST'])
