@@ -224,5 +224,5 @@ def editquiztekst():
         db.session.add(ptxt)
         db.session.commit()
         flash("Quiz tekst edited succesfully")
-        return redirect(url_for("admin.index",tab="lidworden"))
+        return redirect(url_for("admin.index",tab="quiz"))
     return render_template('newtext.html',form=form)
