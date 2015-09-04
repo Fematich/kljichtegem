@@ -217,7 +217,7 @@ def editlidwordentekst():
 
 @admin.route('/quiz/edit', methods = ['GET', 'POST'])
 def editquiztekst():
-    ptxt=Pagetext.query.get_or_404(3)
+    ptxt=Pagetext.query.get_or_404(4)
     form = CreatePagetextForm(obj=ptxt)
     if form.validate_on_submit():
         form.populate_obj(ptxt)
