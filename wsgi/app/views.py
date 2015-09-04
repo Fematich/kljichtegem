@@ -27,7 +27,7 @@ def bestuur():
 
 @app.route('/quiz')
 def quiz():
-    return render_template('quiz.html',text=Pagetext.query.get(4).text, events=Event.getnext(x=3))
+    return render_template('quiz.html',events=Event.getnext(x=3))
 
 @app.route('/nachtvantwodkapje')
 def feestweekend():
