@@ -24,7 +24,6 @@ def index(tab="activiteiten"):
     ptxt1=Pagetext.query.get_or_404(1)
     ptxt2=Pagetext.query.get_or_404(2)
     ptxt3=Pagetext.query.get_or_404(3)
-    ptxt4=Pagetext.query.get_or_404(3)
     return render_template('adminindex.html',events=Event.getnext(),
         bestuursleden=Boardmember.query.all(),
         carouselimages=Carouselimage.query,
@@ -32,7 +31,6 @@ def index(tab="activiteiten"):
         introtekst_form=CreatePagetextForm(obj=ptxt1),
         fuiftekst_form = CreatePagetextForm(obj=ptxt2),
         lidworden_form = CreatePagetextForm(obj=ptxt3),
-        quiz_form = CreatePagetextForm(obj=ptxt4),
         tab=tab)
 
 @admin.route('/event/new', methods = ['GET', 'POST'])
@@ -214,15 +212,3 @@ def editlidwordentekst():
         flash("Lid worden tekst edited succesfully")
         return redirect(url_for("admin.index",tab="lidworden"))
     return render_template('newtext.html',form=form)
-
-# @admin.route('/quiz/edit', methods = ['GET', 'POST'])
-# def editquiztekst():
-#     ptxt=Pagetext.query.get_or_404(4)
-#     form = CreatePagetextForm(obj=ptxt)
-#     if form.validate_on_submit():
-#         form.populate_obj(ptxt)
-#         db.session.add(ptxt)
-#         db.session.commit()
-#         flash("Quiz tekst edited succesfully")
-#         return redirect(url_for("admin.index",tab="quiz"))
-#     return render_template('newtext.html',form=form)
