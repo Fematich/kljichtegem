@@ -25,11 +25,11 @@ def activiteit(event_id):
 def bestuur():
     return render_template('bestuur.html',bestuursleden=Boardmember.query.all())
 
-@app.route('/quiz')
-def quiz():
+@app.route('/zeepkistenrace')
+def zeepkistenrace():
     return render_template('quiz.html',events=Event.getnext(x=3))
 
-@app.route('/nachtvantwodkapje')
+@app.route('/feestweekend')
 def feestweekend():
     return render_template('feestweekend.html',text=Pagetext.query.get(2).text, images=Carouselimage.query.filter_by(carousel="fuif").all())
 
