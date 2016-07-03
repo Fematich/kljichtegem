@@ -25,6 +25,7 @@ def activiteit(event_id):
 def bestuur():
     return render_template('bestuur.html',bestuursleden=Boardmember.query.all())
 
+
 @app.route('/zeepkistenrace')
 def zeepkistenrace():
     return render_template('quiz.html',events=Event.getnext(x=3))
