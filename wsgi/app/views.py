@@ -28,7 +28,12 @@ def bestuur():
 
 @app.route('/zeepkistenrace')
 def zeepkistenrace():
+    return render_template('zeepkistenrace.html',events=Event.getnext(x=3))
+
+@app.route('/quiz')
+def quiz():
     return render_template('quiz.html',events=Event.getnext(x=3))
+
 
 @app.route('/feestweekend')
 def feestweekend():
