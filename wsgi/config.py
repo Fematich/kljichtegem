@@ -4,7 +4,8 @@ import logging
 logging.info(str(os.environ))
 ################################################################
 #################### SQLAlchemy settings #######################
-SQLALCHEMY_DATABASE_URI = os.environ['postgresql_SERVICE_HOST']
+SQLALCHEMY_DATABASE_URI = 'postgresql.kljichtegem.svc'
+#os.environ['postgresql_SERVICE_HOST']
 SQLALCHEMY_ECHO = False
 
 ################################################################
