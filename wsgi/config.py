@@ -1,10 +1,10 @@
 import os
 import logging
 
-logging.info(str(os.environ))
+logging.error(str(os.environ))
 ################################################################
 #################### SQLAlchemy settings #######################
-SQLALCHEMY_DATABASE_URI = os.environ['[postgresql]_SERVICE_HOST']
+SQLALCHEMY_DATABASE_URI = os.environ['POSTGRESQL_SERVICE_HOST']
 SQLALCHEMY_ECHO = False
 
 ################################################################
